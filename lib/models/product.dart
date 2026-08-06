@@ -1,7 +1,12 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'product.g.dart';
+
+@JsonSerializable()
 class Product {
-  final String id;
-  final String name;
-  final String image;
+  final int id;
+  final String title;
+  final String thumbnail;
   final double price;
   final String description;
 
@@ -10,11 +15,16 @@ class Product {
 
   Product({
     required this.id,
-    required this.name,
-    required this.image,
+    required this.title,
+    required this.thumbnail,
     required this.price,
     required this.description,
     this.isFavorite = false,
     this.likeCount = 0,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

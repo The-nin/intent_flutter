@@ -22,9 +22,7 @@ class _ProductCardState extends State<ProductCard> {
   Future<void> _openDetail() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => DetailPage(product: widget.product),
-      ),
+      MaterialPageRoute(builder: (_) => DetailPage(product: widget.product)),
     );
     setState(() {});
   }
@@ -41,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 6,
               offset: const Offset(0, 2),
             ),
@@ -56,7 +54,7 @@ class _ProductCardState extends State<ProductCard> {
                   top: Radius.circular(12),
                 ),
                 child: Image.network(
-                  product.image,
+                  product.thumbnail,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
@@ -68,7 +66,7 @@ class _ProductCardState extends State<ProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name,
+                    product.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontWeight: FontWeight.w600),
@@ -78,7 +76,7 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${product.price.toStringAsFixed(0)}đ',
+                        '${product.price}\$',
                         style: const TextStyle(
                           color: Colors.redAccent,
                           fontWeight: FontWeight.bold,

@@ -23,15 +23,13 @@ class _DetailPageState extends State<DetailPage> {
     final product = widget.product;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(product.name),
-      ),
+      appBar: AppBar(title: Text(product.title)),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              product.image,
+              product.thumbnail,
               width: double.infinity,
               height: 280,
               fit: BoxFit.cover,
@@ -46,7 +44,7 @@ class _DetailPageState extends State<DetailPage> {
                     children: [
                       Expanded(
                         child: Text(
-                          product.name,
+                          product.title,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -61,8 +59,9 @@ class _DetailPageState extends State<DetailPage> {
                               product.isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color:
-                                  product.isFavorite ? Colors.red : Colors.grey,
+                              color: product.isFavorite
+                                  ? Colors.red
+                                  : Colors.grey,
                               size: 28,
                             ),
                           ),
@@ -73,7 +72,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${product.price.toStringAsFixed(0)}đ',
+                    '${product.price}\$',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.redAccent,
@@ -83,10 +82,7 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(height: 16),
                   const Text(
                     'Mô tả sản phẩm',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 8),
                   Text(

@@ -1,17 +1,42 @@
 # exercise8_5_25
 
-A new Flutter project.
+A new Flutter mini project.
+
+## Tech Stack
+
+- Flutter
+- Dart
+- Provider
+- Dio
+- json_serializable
+- SharedPreferences
+- DummyJSON API(MockApi)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+-Install dependencies:
+flutter pub get
 
-A few resources to get you started if this is your first Flutter project:
+-Generate JSON serialization files:
+dart run build_runner build --delete-conflicting-outputs
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+-Check available devices:
+flutter devices
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-Run:
+flutter run
+
+-Checking code:
+dart format .
+flutter analyze
+
+## Using exist account on DummyJSON API for login
+
+    username: emilys
+    password: emilyspass
+
+## API using in this aplication
+
+- Login: POST https://dummyjson.com/auth/login
+- Products: GET https://dummyjson.com/products
+- Product: GET https://dummyjson.com/products/{id}

@@ -17,9 +17,8 @@ class ProductResponse {
     required this.limit,
   });
 
-  factory ProductResponse.fromJson(Map<String, dynamic> json)
-      => _$ProductResponseFromJson(json);
+  factory ProductResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductResponseFromJson(json);
 
-  Map<String, dynamic> toJson()
-      => _$ProductResponseToJson(this);
+  Map<String, dynamic> toJson() => _$ProductResponseToJson(this);
 }

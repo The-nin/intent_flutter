@@ -1,29 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:exercise8_5_25/enums/ui_state.dart';
+import 'package:exercise8_5_25/services/product_service.dart';
 import '../models/product.dart';
 
 class DetailPage extends StatefulWidget {
-  final Product product;
+  final int productId;
 
-  const DetailPage({super.key, required this.product});
+  const DetailPage({super.key, required this.productId});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
-  void _toggleFavorite() {
-    setState(() {
-      widget.product.isFavorite = !widget.product.isFavorite;
-      widget.product.likeCount += widget.product.isFavorite ? 1 : -1;
-    });
+  ProductService api = ProductService();
+  UiState _state = UiState.initial;
+  Product? _product;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProduct();
   }
+
+  Future<void> _loadProduct() async {
+    setState(() {
+      _state = UiState.loading;
+    });
+
+    try {
+      final result = await api.getProductById(widget.productId);
+
+      if (!mounted) return;
+
+      setState(() {
+        _product = result;
+        _state = UiState.success;
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        _state = UiState.error;
+      });
+    }
+  }
+
+  // void _toggleFavorite() {
+  //   setState(() {
+  //     _product!.isFavorite = !_product!.isFavorite;
+  //     _product!.likeCount += _product!.isFavorite ? 1 : -1;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final product = widget.product;
+    if (_state == UiState.loading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (_state == UiState.error) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Không thể tải sản phẩm',
+                style: TextStyle(fontSize: 18),
+              ),
+
+              const SizedBox(height: 16),
+
+              ElevatedButton(
+                onPressed: _loadProduct,
+                child: const Text('Thử lại'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (_state == UiState.empty || _product == null) {
+      return const Scaffold(
+        body: Center(child: Text('Không tìm thấy sản phẩm')),
+      );
+    }
+
+    final product = _product!;
 
     return Scaffold(
       appBar: AppBar(title: Text(product.title)),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,6 +104,7 @@ class _DetailPageState extends State<DetailPage> {
               height: 280,
               fit: BoxFit.cover,
             ),
+
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -51,26 +122,30 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ),
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: _toggleFavorite,
-                            icon: Icon(
-                              product.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: product.isFavorite
-                                  ? Colors.red
-                                  : Colors.grey,
-                              size: 28,
-                            ),
-                          ),
-                          Text('${product.likeCount} lượt thích'),
-                        ],
-                      ),
+
+                      // Column(
+                      //   children: [
+                      //     IconButton(
+                      //       onPressed: _toggleFavorite,
+                      //       icon: Icon(
+                      //         product.isFavorite
+                      //             ? Icons.favorite
+                      //             : Icons.favorite_border,
+                      //         color: product.isFavorite
+                      //             ? Colors.red
+                      //             : Colors.grey,
+                      //         size: 28,
+                      //       ),
+                      //     ),
+
+                      //     Text('${product.likeCount} lượt thích'),
+                      //   ],
+                      // ),
                     ],
                   ),
+
                   const SizedBox(height: 8),
+
                   Text(
                     '${product.price}\$',
                     style: const TextStyle(
@@ -79,12 +154,16 @@ class _DetailPageState extends State<DetailPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   const SizedBox(height: 16),
+
                   const Text(
                     'Mô tả sản phẩm',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
+
                   const SizedBox(height: 8),
+
                   Text(
                     product.description,
                     style: const TextStyle(

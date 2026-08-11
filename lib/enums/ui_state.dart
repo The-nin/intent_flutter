@@ -1,7 +1,1 @@
-enum UiState {
-  initial,
-  loading,
-  success,
-  error,
-  empty,
-}
+enum UiState { initial, loading, success, error, empty }

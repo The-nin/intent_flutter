@@ -2,18 +2,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
   static const String themeKey = 'theme_mode';
-  static const String tokenKey = 'token';
+  static const String accessTokenKey = 'access_token';
+  static const String refreshTokenKey = 'refresh_token';
 
-  Future<void> saveToken(String token) async {
+  Future<void> saveAccessToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(tokenKey, token);
+    await prefs.setString(accessTokenKey, token);
   }
 
-  Future<String?> getToken() async {
+  Future<String?> getAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
 
-    return prefs.getString(tokenKey);
+    return prefs.getString(accessTokenKey);
+  }
+
+  Future<void> saveRefreshToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString(refreshTokenKey, token);
+  }
+
+  Future<String?> getRefreshToken() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(refreshTokenKey);
   }
 
   Future<void> saveThemeMode(String themeMode) async {

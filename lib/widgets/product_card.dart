@@ -12,18 +12,21 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  void _toggleFavorite() {
-    setState(() {
-      widget.product.isFavorite = !widget.product.isFavorite;
-      widget.product.likeCount += widget.product.isFavorite ? 1 : -1;
-    });
-  }
+  // void _toggleFavorite() {
+  //   setState(() {
+  //     widget.product.isFavorite = !widget.product.isFavorite;
+  //     widget.product.likeCount += widget.product.isFavorite ? 1 : -1;
+  //   });
+  // }
 
   Future<void> _openDetail() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => DetailPage(product: widget.product)),
+      MaterialPageRoute(
+        builder: (_) => DetailPage(productId: widget.product.id),
+      ),
     );
+
     setState(() {});
   }
 
@@ -82,27 +85,27 @@ class _ProductCardState extends State<ProductCard> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: _toggleFavorite,
-                        child: Row(
-                          children: [
-                            Icon(
-                              product.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: product.isFavorite
-                                  ? Colors.red
-                                  : Colors.grey,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 2),
-                            Text(
-                              '${product.likeCount}',
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: _toggleFavorite,
+                      //   child: Row(
+                      //     children: [
+                      //       Icon(
+                      //         product.isFavorite
+                      //             ? Icons.favorite
+                      //             : Icons.favorite_border,
+                      //         color: product.isFavorite
+                      //             ? Colors.red
+                      //             : Colors.grey,
+                      //         size: 18,
+                      //       ),
+                      //       const SizedBox(width: 2),
+                      //       Text(
+                      //         '${product.likeCount}',
+                      //         style: const TextStyle(fontSize: 12),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],

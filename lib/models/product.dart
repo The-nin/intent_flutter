@@ -10,17 +10,12 @@ class Product {
   final double price;
   final String description;
 
-  bool isFavorite;
-  int likeCount;
-
   Product({
     required this.id,
     required this.title,
     required this.thumbnail,
     required this.price,
     required this.description,
-    this.isFavorite = false,
-    this.likeCount = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) =>

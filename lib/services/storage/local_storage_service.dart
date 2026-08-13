@@ -5,6 +5,8 @@ class LocalStorageService {
   static const String accessTokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
 
+  static const String favProductsKey = 'fav_products';
+
   Future<void> saveAccessToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -39,5 +41,17 @@ class LocalStorageService {
     final prefs = await SharedPreferences.getInstance();
 
     return prefs.getString(themeKey);
+  }
+
+  Future<Set<String>> getFavoriteProductIds() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getStringList(favProductsKey)?.toSet() ?? {};
+  }
+
+  Future<void> saveFavoriteProductIds(Set<String> productIds) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setStringList(favProductsKey, productIds.toList());
   }
 }

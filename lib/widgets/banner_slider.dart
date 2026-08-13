@@ -14,6 +14,12 @@ class _BannerSliderState extends State<BannerSlider> {
   int _currentIndex = 0;
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

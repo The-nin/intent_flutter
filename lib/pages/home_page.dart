@@ -23,18 +23,23 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProductProvider>().getProducts();
+      final provider = context.read<ProductProvider>();
+
+      provider.getProducts();
+      provider.loadFavorites();
     });
   }
 
   Widget _buildBody() {
     return Consumer<ProductProvider>(
       builder: (context, provider, child) {
-        if (provider.state == UiState.loading) {
+        final state = provider.productsState;
+
+        if (state == UiState.loading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (provider.state == UiState.error) {
+        if (state == UiState.error) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
 
-        if (provider.state == UiState.empty) {
+        if (state == UiState.empty) {
           return const Center(child: Text('Không có sản phẩm'));
         }
 

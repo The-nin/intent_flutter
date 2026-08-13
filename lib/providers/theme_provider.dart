@@ -17,8 +17,6 @@ class ThemeProvider extends ChangeNotifier {
     } else {
       _themeMode = ThemeMode.light;
     }
-
-    notifyListeners();
   }
 
   Future<void> toggleTheme() async {

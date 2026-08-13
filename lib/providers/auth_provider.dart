@@ -6,7 +6,7 @@ import 'package:exercise8_5_25/services/storage/local_storage_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   final LocalStorageService storage = LocalStorageService();
-  final AuthService authApi = AuthService();
+  final AuthService authService = AuthService();
 
   UiState _state = UiState.initial;
 
@@ -25,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await authApi.login(username, password);
+      final response = await authService.login(username, password);
       _accessToken = response.accessToken;
       _refreshToken = response.refreshToken;
       _user = response;

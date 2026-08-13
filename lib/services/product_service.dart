@@ -5,20 +5,14 @@ import '../models/product_response.dart';
 
 class ProductService {
   Future<ProductResponse> getProducts() async {
-    try {
-      final response = await DioClient.dio.get('/products');
-      return ProductResponse.fromJson(response.data);
-    } catch (e) {
-      rethrow;
-    }
+    final response = await DioClient.dio.get('/products');
+
+    return ProductResponse.fromJson(response.data);
   }
 
   Future<Product> getProductById(int id) async {
-    try {
-      final response = await DioClient.dio.get('/products/$id');
-      return Product.fromJson(response.data);
-    } catch (e) {
-      rethrow;
-    }
+    final response = await DioClient.dio.get('/products/$id');
+
+    return Product.fromJson(response.data);
   }
 }

@@ -2,60 +2,91 @@ import 'package:exercise8_5_25/enums/ui_state.dart';
 import 'package:flutter/foundation.dart';
 import '../models/product.dart';
 import '../services/product_service.dart';
+import '../services/storage/local_storage_service.dart';
 
 class ProductProvider extends ChangeNotifier {
-  final ProductService api = ProductService();
+  final ProductService productService = ProductService();
+  final LocalStorageService storage = LocalStorageService();
 
-  UiState _state = UiState.initial;
+  UiState _productsState = UiState.initial;
+  UiState _productDetailState = UiState.initial;
 
   List<Product> _products = [];
   Product? _product;
 
   String? _errorMessage;
 
-  UiState get state => _state;
+  Set<String> _favoriteProductIds = {};
+
+  UiState get productsState => _productsState;
+  UiState get productDetailState => _productDetailState;
 
   List<Product> get products => _products;
   Product? get product => _product;
 
   String? get errorMessage => _errorMessage;
 
+  bool isFavorite(int productId) {
+    return _favoriteProductIds.contains(productId.toString());
+  }
+
+  Future<void> loadFavorites() async {
+    _favoriteProductIds = await storage.getFavoriteProductIds();
+
+    notifyListeners();
+  }
+
   Future<void> getProducts() async {
-    _state = UiState.loading;
+    _productsState = UiState.loading;
     _errorMessage = null;
     notifyListeners();
     try {
-      final response = await api.getProducts();
+      final response = await productService.getProducts();
 
       if (response.products.isEmpty) {
         _products = [];
-        _state = UiState.empty;
+        _productsState = UiState.empty;
       } else {
         _products = response.products;
-        _state = UiState.success;
+        _productsState = UiState.success;
       }
     } catch (e) {
       _errorMessage = e.toString();
-      _state = UiState.error;
+      _productsState = UiState.error;
     }
     notifyListeners();
   }
 
   Future<void> getProductById(int id) async {
-    _state = UiState.loading;
+    _productDetailState = UiState.loading;
     _errorMessage = null;
     _product = null;
     notifyListeners();
 
     try {
-      final response = await api.getProductById(id);
+      final response = await productService.getProductById(id);
 
       _product = response;
-      _state = UiState.success;
+      _productDetailState = UiState.success;
     } catch (e) {
       _errorMessage = e.toString();
-      _state = UiState.error;
+      _productDetailState = UiState.error;
     }
+
+    notifyListeners();
+  }
+
+  Future<void> toggleFavorite(int productId) async {
+    final productIdString = productId.toString();
+
+    if (_favoriteProductIds.contains(productIdString)) {
+      _favoriteProductIds.remove(productIdString);
+    } else {
+      _favoriteProductIds.add(productIdString);
+    }
+
+    await storage.saveFavoriteProductIds(_favoriteProductIds);
+
     notifyListeners();
   }
 }

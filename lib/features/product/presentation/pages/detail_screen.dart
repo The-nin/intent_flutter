@@ -1,5 +1,5 @@
-import 'package:exercise8_5_25/enums/ui_state.dart';
-import 'package:exercise8_5_25/providers/product_provider.dart';
+import 'package:exercise_5_8_26/enums/ui_state.dart';
+import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,13 +33,13 @@ class _DetailPageState extends State<DetailPage> {
         final state = provider.productDetailState;
         final product = provider.product;
 
-        if (state == UiState.loading) {
+        if (state == UiStateEnum.loading) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
 
-        if (state == UiState.error) {
+        if (state == UiStateEnum.error) {
           return Scaffold(
             appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
             body: Center(
@@ -63,7 +63,7 @@ class _DetailPageState extends State<DetailPage> {
           );
         }
 
-        if (state == UiState.empty || product == null) {
+        if (state == UiStateEnum.empty || product == null) {
           return const Scaffold(
             body: Center(child: Text('Không tìm thấy sản phẩm')),
           );

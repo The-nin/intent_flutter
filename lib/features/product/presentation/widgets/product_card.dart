@@ -1,9 +1,9 @@
-import 'package:exercise8_5_25/providers/product_provider.dart';
+import 'package:exercise_5_8_26/features/product/domain/entities/product.dart';
+import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/product.dart';
-import '../pages/detail_page.dart';
+import '../pages/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;

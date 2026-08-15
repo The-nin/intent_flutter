@@ -1,4 +1,4 @@
-import 'dio_client.dart';
+import 'package:exercise_5_8_26/core/network/dio_client.dart';
 import '../models/login_response.dart';
 
 class AuthService {

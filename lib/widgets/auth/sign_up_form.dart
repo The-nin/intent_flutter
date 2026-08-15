@@ -7,19 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:exercise_5_8_26/providers/auth_provider.dart';
 import 'package:exercise_5_8_26/widgets/auth/auth_button.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> onLoginPressed() async {
+  Future<void> onSignUpPressed() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -125,6 +125,61 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 12),
 
           Text(
+            'Email or Phone number',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+
+          const SizedBox(height: 8),
+
+          TextFormField(
+            controller: usernameController,
+            style: const TextStyle(fontSize: 16),
+            decoration: InputDecoration(
+              hintText: 'Enter your username',
+              hintStyle: TextStyle(
+                color: const Color.fromRGBO(189, 189, 189, 1),
+              ),
+
+              prefixIcon: const Icon(
+                Icons.person_outline,
+                color: Color.fromARGB(255, 105, 83, 205),
+              ),
+
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                  width: 1.2,
+                  color: Color.fromARGB(255, 192, 191, 191),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                  width: 2.4,
+                  color: Color.fromARGB(255, 105, 83, 205),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(width: 1.2, color: Colors.red),
+              ),
+
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(width: 2.4, color: Colors.red),
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your username';
+              }
+              return null;
+            },
+          ),
+
+          const SizedBox(height: 12),
+
+          Text(
             'Password',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
@@ -151,8 +206,8 @@ class _LoginFormState extends State<LoginForm> {
           AuthButton(
             onPressed: authProvider.state == UiStateEnum.loading
                 ? null
-                : onLoginPressed,
-            text: 'Login',
+                : onSignUpPressed,
+            text: 'Sign Up',
             isLoading: authProvider.state == UiStateEnum.loading,
           ),
         ],

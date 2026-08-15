@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:exercise8_5_25/providers/product_provider.dart';
-import '../data/fake_data.dart';
+import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/product_card.dart';
-import '../widgets/search_bar.dart';
-import '../enums/ui_state.dart';
+import '../../../../widgets/search_bar.dart';
+import '../../../../enums/ui_state.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   String _searchKeyword = '';
+
+  final List<String> bannerImages = [
+    'https://picsum.photos/id/1011/800/400',
+    'https://picsum.photos/id/1015/800/400',
+    'https://picsum.photos/id/1025/800/400',
+  ];
 
   @override
   void initState() {
@@ -35,11 +40,11 @@ class _HomePageState extends State<HomePage> {
       builder: (context, provider, child) {
         final state = provider.productsState;
 
-        if (state == UiState.loading) {
+        if (state == UiStateEnum.loading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state == UiState.error) {
+        if (state == UiStateEnum.error) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
 
-        if (state == UiState.empty) {
+        if (state == UiStateEnum.empty) {
           return const Center(child: Text('Không có sản phẩm'));
         }
 

@@ -1,9 +1,13 @@
+import 'core/di/injection.dart';
+import 'features/product/presentation/providers/product_provider.dart';
+import 'pages/auth/splash_screen.dart';
+import 'services/storage/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/auth/login_page.dart';
-import 'pages/home_page.dart';
-import 'providers/product_provider.dart';
+import 'pages/auth/login_screen.dart';
+import 'features/product/presentation/pages/home_screen.dart';
+
 import 'providers/theme_provider.dart';
 import 'providers/auth_provider.dart';
 
@@ -18,7 +22,13 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(
+            getProductsUseCase: Injection.getProductsUseCase,
+            getProductByIdUseCase: Injection.getProductByIdUseCase,
+            storage: LocalStorageService(),
+          ),
+        ),
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider.value(value: authProvider),
       ],
@@ -48,9 +58,10 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: themeProvider.themeMode,
 
-      home: authProvider.accessToken != null
-          ? const HomePage()
-          : const LoginPage(),
+      // home: authProvider.accessToken != null
+      //     ? const HomeScreen()
+      //     : const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

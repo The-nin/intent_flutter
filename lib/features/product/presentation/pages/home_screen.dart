@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/product_card.dart';
-import '../../../../widgets/search_bar.dart';
+import '../widgets/search_bar.dart';
 import '../../../../enums/ui_state.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:exercise_5_8_26/pages/auth/login_screen.dart';
-import 'package:exercise_5_8_26/widgets/auth/sign_up_form.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/screen/login_screen.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

@@ -3,7 +3,7 @@ import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/domain/entities/product.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_product_by_id_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_products_use_case.dart';
-import 'package:exercise_5_8_26/services/storage/local_storage_service.dart';
+import 'package:exercise_5_8_26/core/storage/local_storage_service.dart';
 
 class ProductProvider extends ChangeNotifier {
   ProductProvider({

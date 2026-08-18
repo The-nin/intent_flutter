@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../services/storage/local_storage_service.dart';
+import '../core/storage/local_storage_service.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final LocalStorageService storage = LocalStorageService();

@@ -1,11 +1,11 @@
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/presentation/pages/home_screen.dart';
-import 'package:exercise_5_8_26/widgets/auth/input_password.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:exercise_5_8_26/providers/auth_provider.dart';
-import 'package:exercise_5_8_26/widgets/auth/auth_button.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/auth_button.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -17,6 +17,7 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   Future<void> onSignUpPressed() async {
@@ -26,6 +27,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
     final username = usernameController.text;
     final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
 
     try {
       await context.read<AuthProvider>().login(username, password);
@@ -125,23 +127,34 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 12),
 
           Text(
-            'Email or Phone number',
+            'Password',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+
+          const SizedBox(height: 8),
+
+          InputPassword(controller: passwordController),
+
+          const SizedBox(height: 12),
+
+          Text(
+            'Confirm password',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
           const SizedBox(height: 8),
 
           TextFormField(
-            controller: usernameController,
+            controller: confirmPasswordController,
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              hintText: 'Enter your username',
+              hintText: 'Enter your confirm password',
               hintStyle: TextStyle(
                 color: const Color.fromRGBO(189, 189, 189, 1),
               ),
 
               prefixIcon: const Icon(
-                Icons.person_outline,
+                Icons.lock_outline,
                 color: Color.fromARGB(255, 105, 83, 205),
               ),
 
@@ -171,24 +184,11 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter confirm password';
               }
               return null;
             },
           ),
-
-          const SizedBox(height: 12),
-
-          Text(
-            'Password',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          ),
-
-          const SizedBox(height: 8),
-
-          InputPassword(),
-
-          const SizedBox(height: 12),
 
           Align(
             alignment: Alignment.centerRight,

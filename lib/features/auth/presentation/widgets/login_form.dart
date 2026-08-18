@@ -1,11 +1,11 @@
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/presentation/pages/home_screen.dart';
-import 'package:exercise_5_8_26/widgets/auth/input_password.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:exercise_5_8_26/providers/auth_provider.dart';
-import 'package:exercise_5_8_26/widgets/auth/auth_button.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/auth_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -131,7 +131,7 @@ class _LoginFormState extends State<LoginForm> {
 
           const SizedBox(height: 8),
 
-          InputPassword(),
+          InputPassword(controller: passwordController),
 
           const SizedBox(height: 12),
 

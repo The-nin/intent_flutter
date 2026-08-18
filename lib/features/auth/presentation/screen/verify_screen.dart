@@ -19,10 +19,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               Text('We have to sent the code  verification to'),
               Text('email.com.vn'),
               SizedBox(height: 20),
-              Row(children: [
-                  
-                ]
-              ),
+              Row(children: []),
             ],
           ),
         ),

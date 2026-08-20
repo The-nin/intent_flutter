@@ -1,7 +1,7 @@
 import 'package:exercise_5_8_26/enums/ui_state.dart';
-import 'package:exercise_5_8_26/features/product/presentation/pages/home_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
@@ -32,16 +32,13 @@ class _LoginFormState extends State<LoginForm> {
 
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Login successful!'),
           backgroundColor: Colors.green,
         ),
       );
+      context.go('/main');
     } catch (e) {
       if (!mounted) return;
 

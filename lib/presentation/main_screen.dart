@@ -1,5 +1,8 @@
-import 'package:exercise_5_8_26/features/product/presentation/pages/home_screen.dart';
+import 'package:exercise_5_8_26/features/product/presentation/screens/home_screen.dart';
+import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
+import 'package:exercise_5_8_26/features/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,10 +17,9 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = const [
     HomeScreen(),
     // OrderScreen(),
-    // FavoriteScreen(),
-    // ProfileScreen(),
     Center(child: Text('My Order')),
-    Center(child: Text('Favorite')),
+    FavoriteScreen(),
+    // ProfileScreen(),
     Center(child: Text('Profile')),
   ];
 
@@ -68,6 +70,41 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Consumer<ProductProvider>(
+        builder: (context, provider, child) {
+          final favoriteProducts = provider.products
+              .where((product) => provider.isFavorite(product.id))
+              .toList();
+
+          if (favoriteProducts.isEmpty) {
+            return const Center(child: Text('No favorite products'));
+          }
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: favoriteProducts.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 0.7,
+            ),
+            itemBuilder: (context, index) {
+              return ProductCard(product: favoriteProducts[index]);
+            },
+          );
+        },
       ),
     );
   }

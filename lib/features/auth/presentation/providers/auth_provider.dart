@@ -18,7 +18,9 @@ class AuthProvider extends ChangeNotifier {
 
   String? _accessToken;
   String? _refreshToken;
+  bool _isInitialized = false;
   AuthUser? _user;
+  String? _errorMessage;
 
   UiStateEnum get state => _state;
 
@@ -26,10 +28,17 @@ class AuthProvider extends ChangeNotifier {
 
   String? get refreshToken => _refreshToken;
 
+  bool get isInitialized => _isInitialized;
+
   AuthUser? get user => _user;
+
+  String? get errorMessage => _errorMessage;
+
+  bool get isAuthenticated => _accessToken != null && _accessToken!.isNotEmpty;
 
   Future<void> login(String username, String password) async {
     _state = UiStateEnum.loading;
+    _errorMessage = null;
     notifyListeners();
 
     try {
@@ -46,14 +55,26 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _state = UiStateEnum.error;
+      _errorMessage = e.toString();
       notifyListeners();
-      rethrow;
     }
   }
 
   Future<void> loadToken() async {
     _accessToken = await _storage.getAccessToken();
     _refreshToken = await _storage.getRefreshToken();
+
+    _isInitialized = true;
+
+    notifyListeners();
+  }
+
+  Future<void> logout() async {
+    await _storage.clearTokens();
+
+    _accessToken = null;
+    _refreshToken = null;
+    _user = null;
 
     notifyListeners();
   }

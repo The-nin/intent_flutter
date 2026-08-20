@@ -38,6 +38,11 @@ class _BannerSliderState extends State<BannerSlider> {
                     widget.images[index],
                     fit: BoxFit.cover,
                     width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(Icons.image_not_supported, size: 48),
+                      );
+                    },
                   ),
                 ),
               );

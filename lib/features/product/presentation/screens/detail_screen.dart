@@ -3,16 +3,16 @@ import 'package:exercise_5_8_26/features/product/presentation/providers/product_
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DetailPage extends StatefulWidget {
+class ProductDetailScreen extends StatefulWidget {
   final int productId;
 
-  const DetailPage({super.key, required this.productId});
+  const ProductDetailScreen({super.key, required this.productId});
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
     super.initState();

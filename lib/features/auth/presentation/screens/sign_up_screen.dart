@@ -1,32 +1,33 @@
-import 'package:exercise_5_8_26/features/auth/presentation/screen/sign_up_screen.dart';
-import 'package:exercise_5_8_26/features/auth/presentation/widgets/login_form.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/screens/login_screen.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 26),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Column(
             children: [
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Text(
-                    'Login Account',
+                    'Create Account',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
-                  const Text(
-                    'Sign in to your account to continue.',
+                  Text(
+                    'Start learning with create your account',
                     style: TextStyle(
                       fontSize: 16,
                       color: Color.fromRGBO(189, 189, 189, 1),
@@ -34,12 +35,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 24),
 
-              SizedBox(height: 24),
+              const SignUpForm(),
 
-              const LoginForm(),
-
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               Center(
                 child: RichText(
@@ -48,19 +48,14 @@ class LoginScreen extends StatelessWidget {
                     style: const TextStyle(color: Colors.black),
                     children: [
                       TextSpan(
-                        text: 'Sign up',
+                        text: 'Login',
                         style: const TextStyle(
                           color: Color.fromRGBO(105, 83, 205, 1),
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
-                              ),
-                            );
+                            context.go('/login');
                           },
                       ),
                     ],

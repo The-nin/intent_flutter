@@ -5,26 +5,35 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:exercise_5_8_26/core/di/injection.dart';
+import 'package:exercise_5_8_26/core/routes/app_router.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
 import 'package:exercise_5_8_26/main.dart';
+import 'package:exercise_5_8_26/presentation/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('app builds the splash screen', (WidgetTester tester) async {
+    final authProvider = AuthProvider(
+      loginUseCase: Injection.loginUseCase,
+      storage: Injection.secureStorageService,
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: authProvider),
+          ChangeNotifierProvider(
+            create: (_) =>
+                ThemeProvider(storage: Injection.localStorageService),
+          ),
+        ],
+        child: MyApp(appRouter: createAppRouter(authProvider)),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Please waiting a few minutes'), findsOneWidget);
   });
 }

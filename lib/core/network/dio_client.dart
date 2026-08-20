@@ -3,14 +3,20 @@ import 'package:exercise_5_8_26/core/network/auth_interceptor.dart';
 import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
 
 class DioClient {
-  static final SecureStorageService _storage = SecureStorageService();
+  DioClient({required SecureStorageService storage}) {
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://dummyjson.com',
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
 
-  static final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://dummyjson.com',
-      connectTimeout: const Duration(seconds: 5),
-      receiveTimeout: const Duration(seconds: 5),
-      headers: {'Content-Type': 'application/json'},
-    ),
-  )..interceptors.add(AuthInterceptor(storage: _storage));
+    _dio.interceptors.add(AuthInterceptor(storage: storage));
+  }
+
+  late final Dio _dio;
+
+  Dio get dio => _dio;
 }

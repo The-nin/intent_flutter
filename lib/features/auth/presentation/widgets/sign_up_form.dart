@@ -1,10 +1,6 @@
-import 'package:exercise_5_8_26/enums/ui_state.dart';
-import 'package:exercise_5_8_26/features/product/presentation/pages/home_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/auth_button.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -25,47 +21,23 @@ class _SignUpFormState extends State<SignUpForm> {
       return;
     }
 
-    final username = usernameController.text;
-    final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
-
-    try {
-      await context.read<AuthProvider>().login(username, password);
-
-      if (!mounted) return;
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-    } catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login failed. Please try again.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Sign up is unavailable until a backend is connected.'),
+      ),
+    );
   }
 
   @override
   void dispose() {
     usernameController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.watch<AuthProvider>();
     return Form(
       key: _formKey,
       child: Column(
@@ -186,6 +158,9 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter confirm password';
               }
+              if (value != passwordController.text) {
+                return 'Passwords do not match';
+              }
               return null;
             },
           ),
@@ -204,11 +179,9 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 30),
 
           AuthButton(
-            onPressed: authProvider.state == UiStateEnum.loading
-                ? null
-                : onSignUpPressed,
+            onPressed: onSignUpPressed,
             text: 'Sign Up',
-            isLoading: authProvider.state == UiStateEnum.loading,
+            isLoading: false,
           ),
         ],
       ),

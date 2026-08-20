@@ -1,23 +1,25 @@
-import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
+import 'package:exercise_5_8_26/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/injection.dart';
 import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/product/presentation/providers/product_provider.dart';
-import 'features/auth/presentation/screen/splash_screen.dart';
-import 'providers/theme_provider.dart';
-import 'core/storage/local_storage_service.dart';
+import 'presentation/providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final themeProvider = ThemeProvider();
+  final themeProvider = ThemeProvider(storage: Injection.localStorageService);
+  await themeProvider.loadTheme();
 
   final authProvider = AuthProvider(
     loginUseCase: Injection.loginUseCase,
-    storage: SecureStorageService(),
+    storage: Injection.secureStorageService,
   );
+
+  final appRouter = createAppRouter(authProvider);
 
   runApp(
     MultiProvider(
@@ -26,7 +28,7 @@ void main() async {
           create: (_) => ProductProvider(
             getProductsUseCase: Injection.getProductsUseCase,
             getProductByIdUseCase: Injection.getProductByIdUseCase,
-            storage: LocalStorageService(),
+            storage: Injection.localStorageService,
           ),
         ),
 
@@ -34,19 +36,22 @@ void main() async {
 
         ChangeNotifierProvider.value(value: authProvider),
       ],
-      child: const MyApp(),
+      child: MyApp(appRouter: appRouter),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter});
+
+  final GoRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       title: 'Shop App',
 
@@ -62,8 +67,6 @@ class MyApp extends StatelessWidget {
 
       darkTheme: ThemeData.dark(),
       themeMode: themeProvider.themeMode,
-
-      home: const SplashScreen(),
     );
   }
 }

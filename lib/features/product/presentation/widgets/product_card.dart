@@ -1,9 +1,8 @@
 import 'package:exercise_5_8_26/features/product/domain/entities/product.dart';
 import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
-import '../pages/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -15,10 +14,7 @@ class ProductCard extends StatelessWidget {
   }
 
   void _openDetail(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => DetailPage(productId: product.id)),
-    );
+    context.push('/product/${product.id}');
   }
 
   @override

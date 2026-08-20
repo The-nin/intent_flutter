@@ -1,6 +1,4 @@
-import 'package:exercise_5_8_26/features/auth/presentation/screen/login_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
-import 'package:exercise_5_8_26/presentation/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,27 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _checkAuthentication();
-  }
-
-  Future<void> _checkAuthentication() async {
-    final authProvider = context.read<AuthProvider>();
-
-    await authProvider.loadToken();
-
-    if (!mounted) return;
-
-    if (authProvider.accessToken != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const MainScreen()),
-      );
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-      );
-    }
+    context.read<AuthProvider>().loadToken();
   }
 
   @override

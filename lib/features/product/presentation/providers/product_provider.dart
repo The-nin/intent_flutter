@@ -1,22 +1,26 @@
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_product_ids_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/toggle_favorite_use_case.dart';
 import 'package:flutter/foundation.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/domain/entities/product.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_product_by_id_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_products_use_case.dart';
-import 'package:exercise_5_8_26/core/storage/local_storage_service.dart';
 
 class ProductProvider extends ChangeNotifier {
   ProductProvider({
     required GetProductsUseCase getProductsUseCase,
     required GetProductByIdUseCase getProductByIdUseCase,
-    required LocalStorageService storage,
+    required ToggleFavoriteUseCase toggleFavoriteUseCase,
+    required GetFavoriteProductIdsUseCase getFavoriteProductIdsUseCase,
   }) : _getProductsUseCase = getProductsUseCase,
        _getProductByIdUseCase = getProductByIdUseCase,
-       _storage = storage;
+       _toggleFavoriteUseCase = toggleFavoriteUseCase,
+       _getFavoriteProductIdsUseCase = getFavoriteProductIdsUseCase;
 
   final GetProductsUseCase _getProductsUseCase;
   final GetProductByIdUseCase _getProductByIdUseCase;
-  final LocalStorageService _storage;
+  final ToggleFavoriteUseCase _toggleFavoriteUseCase;
+  final GetFavoriteProductIdsUseCase _getFavoriteProductIdsUseCase;
 
   UiStateEnum _productsState = UiStateEnum.initial;
   UiStateEnum _productDetailState = UiStateEnum.initial;
@@ -43,7 +47,9 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<void> loadFavorites() async {
-    _favoriteProductIds = await _storage.getFavoriteProductIds();
+    _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
+        .map((id) => id.toString())
+        .toSet();
 
     notifyListeners();
   }
@@ -93,6 +99,8 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<void> toggleFavorite(int productId) async {
+    await _toggleFavoriteUseCase(productId);
+
     final productIdString = productId.toString();
 
     if (_favoriteProductIds.contains(productIdString)) {
@@ -100,8 +108,6 @@ class ProductProvider extends ChangeNotifier {
     } else {
       _favoriteProductIds.add(productIdString);
     }
-
-    await _storage.saveFavoriteProductIds(_favoriteProductIds);
 
     notifyListeners();
   }

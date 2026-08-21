@@ -7,6 +7,8 @@ import 'core/di/injection.dart';
 import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/product/presentation/providers/product_provider.dart';
 import 'presentation/providers/theme_provider.dart';
+import 'presentation/providers/connectivity_provider.dart';
+import 'core/widgets/offline_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,13 +30,17 @@ void main() async {
           create: (_) => ProductProvider(
             getProductsUseCase: Injection.getProductsUseCase,
             getProductByIdUseCase: Injection.getProductByIdUseCase,
-            storage: Injection.localStorageService,
+            toggleFavoriteUseCase: Injection.toggleFavoriteUseCase,
+            getFavoriteProductIdsUseCase:
+                Injection.getFavoriteProductIdsUseCase,
           ),
         ),
 
         ChangeNotifierProvider.value(value: themeProvider),
 
         ChangeNotifierProvider.value(value: authProvider),
+
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
       ],
       child: MyApp(appRouter: appRouter),
     ),
@@ -52,6 +58,22 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp.router(
       routerConfig: appRouter,
+      builder: (context, child) {
+        return Stack(
+          children: [
+            if (child != null) child,
+            const Align(
+              alignment: Alignment.topRight,
+              child: SafeArea(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: OfflineBanner(),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
       debugShowCheckedModeBanner: false,
       title: 'Shop App',
 

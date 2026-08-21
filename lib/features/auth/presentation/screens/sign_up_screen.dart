@@ -1,4 +1,3 @@
-import 'package:exercise_5_8_26/features/auth/presentation/screens/login_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

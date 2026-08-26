@@ -20,23 +20,25 @@ class _InputWidgetState extends State<InputPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return TextFormField(
       controller: widget.controller,
       obscureText: !_isPasswordVisible,
       style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
         hintText: 'Enter your password',
-        hintStyle: TextStyle(color: const Color.fromRGBO(189, 189, 189, 1)),
+        hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
-        prefixIcon: const Icon(
+        prefixIcon: Icon(
           Icons.lock_outline,
-          color: Color.fromARGB(255, 105, 83, 205),
+          color: colors.primary,
         ),
 
         suffixIcon: IconButton(
           icon: Icon(
             _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-            color: Color.fromRGBO(189, 189, 189, 1),
+            color: colors.onSurfaceVariant,
           ),
           onPressed: _togglePasswordVisibility,
         ),
@@ -45,24 +47,24 @@ class _InputWidgetState extends State<InputPassword> {
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
             width: 1.2,
-            color: Color.fromARGB(255, 192, 191, 191),
+            color: colors.outline,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
             width: 2.4,
-            color: Color.fromARGB(255, 105, 83, 205),
+            color: colors.primary,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(width: 1.2, color: Colors.red),
+          borderSide: BorderSide(width: 1.2, color: colors.error),
         ),
 
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(width: 2.4, color: Colors.red),
+          borderSide: BorderSide(width: 2.4, color: colors.error),
         ),
       ),
       validator: (value) {

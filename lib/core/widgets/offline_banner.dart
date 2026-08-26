@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:exercise_5_8_26/presentation/providers/connectivity_provider.dart';
+import 'package:exercise_5_8_26/core/providers/connectivity_provider.dart';
 
 class OfflineBanner extends StatefulWidget {
   const OfflineBanner({super.key});
@@ -39,6 +39,8 @@ class _OfflineBannerState extends State<OfflineBanner> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Consumer<ConnectivityProvider>(
       builder: (context, connectivity, child) {
         if (!connectivity.isOffline) {
@@ -50,11 +52,11 @@ class _OfflineBannerState extends State<OfflineBanner> {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.grey.shade400.withValues(alpha: 0.8),
+              color: colors.surfaceContainerHighest.withValues(alpha: 0.95),
               borderRadius: BorderRadius.circular(8),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Colors.black26,
+                  color: Theme.of(context).shadowColor.withValues(alpha: 0.2),
                   blurRadius: 4,
                   offset: Offset(0, 2),
                 ),
@@ -62,16 +64,16 @@ class _OfflineBannerState extends State<OfflineBanner> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.wifi_off, color: Colors.white),
+                Icon(Icons.wifi_off, color: colors.onSurface),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Bạn đang offline. \nĐang hiển thị dữ liệu đã lưu.',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: colors.onSurface),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
+                  icon: Icon(Icons.close, color: colors.onSurface),
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: () {
@@ -95,18 +97,18 @@ class _OfflineBannerState extends State<OfflineBanner> {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.grey.shade400.withValues(alpha: 0.8),
+                color: colors.surfaceContainerHighest.withValues(alpha: 0.95),
                 shape: BoxShape.circle,
 
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.black26,
+                    color: Theme.of(context).shadowColor.withValues(alpha: 0.2),
                     blurRadius: 4,
                     offset: Offset(0, 2),
                   ),
                 ],
               ),
-              child: const Icon(Icons.wifi_off, color: Colors.white),
+              child: Icon(Icons.wifi_off, color: colors.onSurface),
             ),
           );
         }

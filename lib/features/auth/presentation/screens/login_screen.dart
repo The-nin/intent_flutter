@@ -8,6 +8,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -18,18 +20,20 @@ class LoginScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
+                  Text(
                     'Login Account',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   const SizedBox(height: 8),
 
-                  const Text(
+                  Text(
                     'Sign in to your account to continue.',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color.fromRGBO(189, 189, 189, 1),
+                      color: colors.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -45,12 +49,12 @@ class LoginScreen extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: 'Already have an account? ',
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(color: colors.onSurface),
                     children: [
                       TextSpan(
                         text: 'Sign up',
-                        style: const TextStyle(
-                          color: Color.fromRGBO(105, 83, 205, 1),
+                        style: TextStyle(
+                          color: colors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

@@ -13,4 +13,17 @@ class AuthRepositoryImpl implements AuthRepository {
 
     return response.toEntity();
   }
+
+  @override
+  Future<AuthUser> getCurrentUser({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    final response = await remoteDataSource.getCurrentUser();
+
+    return response.toEntity(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+  }
 }

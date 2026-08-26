@@ -7,17 +7,19 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: colors.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
         onChanged: onChanged,
-        decoration: const InputDecoration(
-          icon: Icon(Icons.search, color: Colors.grey),
+        decoration: InputDecoration(
+          icon: Icon(Icons.search, color: colors.onSurfaceVariant),
           hintText: 'Tìm kiếm sản phẩm...',
           border: InputBorder.none,
         ),

@@ -6,11 +6,13 @@ import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final VoidCallback? onFavoriteChanged;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, this.onFavoriteChanged});
 
   Future<void> _toggleFavorite(BuildContext context) async {
     await context.read<ProductProvider>().toggleFavorite(product.id);
+    onFavoriteChanged?.call();
   }
 
   void _openDetail(BuildContext context) {
@@ -22,16 +24,17 @@ class ProductCard extends StatelessWidget {
     return Consumer<ProductProvider>(
       builder: (context, provider, child) {
         final isFavorite = provider.isFavorite(product.id);
+        final colors = Theme.of(context).colorScheme;
 
         return GestureDetector(
           onTap: () => _openDetail(context),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colors.surface,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.06),
+                  color: Theme.of(context).shadowColor.withValues(alpha: 0.06),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -91,8 +94,8 @@ class ProductCard extends StatelessWidget {
                         children: [
                           Text(
                             '${product.price}\$',
-                            style: const TextStyle(
-                              color: Colors.redAccent,
+                            style: TextStyle(
+                              color: colors.error,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -103,7 +106,9 @@ class ProductCard extends StatelessWidget {
                               isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color: isFavorite ? Colors.red : Colors.grey,
+                                color: isFavorite
+                                  ? colors.error
+                                  : colors.onSurfaceVariant,
                               size: 20,
                             ),
                           ),

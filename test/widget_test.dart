@@ -11,13 +11,15 @@ import 'package:exercise_5_8_26/core/di/injection.dart';
 import 'package:exercise_5_8_26/core/routes/app_router.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
 import 'package:exercise_5_8_26/main.dart';
-import 'package:exercise_5_8_26/presentation/providers/theme_provider.dart';
+import 'package:exercise_5_8_26/core/providers/theme_provider.dart';
+import 'package:exercise_5_8_26/core/providers/connectivity_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   testWidgets('app builds the splash screen', (WidgetTester tester) async {
     final authProvider = AuthProvider(
       loginUseCase: Injection.loginUseCase,
+      getCurrentUserUseCase: Injection.getCurrentUserUseCase,
       storage: Injection.secureStorageService,
     );
 
@@ -29,11 +31,12 @@ void main() {
             create: (_) =>
                 ThemeProvider(storage: Injection.localStorageService),
           ),
+          ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
         ],
         child: MyApp(appRouter: createAppRouter(authProvider)),
       ),
     );
 
-    expect(find.text('Please waiting a few minutes'), findsOneWidget);
+    expect(find.text('Please wait a moment.'), findsOneWidget);
   });
 }

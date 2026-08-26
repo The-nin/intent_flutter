@@ -38,8 +38,11 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Form(
       key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -56,36 +59,36 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: InputDecoration(
               hintText: 'Enter your username',
               hintStyle: TextStyle(
-                color: const Color.fromRGBO(189, 189, 189, 1),
+                color: colors.onSurfaceVariant,
               ),
 
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.person_outline,
-                color: Color.fromARGB(255, 105, 83, 205),
+                color: colors.primary,
               ),
 
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
                   width: 1.2,
-                  color: Color.fromARGB(255, 192, 191, 191),
+                  color: colors.outline,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
                   width: 2.4,
-                  color: Color.fromARGB(255, 105, 83, 205),
+                  color: colors.primary,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(width: 1.2, color: Colors.red),
+                borderSide: BorderSide(width: 1.2, color: colors.error),
               ),
 
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(width: 2.4, color: Colors.red),
+                borderSide: BorderSide(width: 2.4, color: colors.error),
               ),
             ),
             validator: (value) {
@@ -122,36 +125,36 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: InputDecoration(
               hintText: 'Enter your confirm password',
               hintStyle: TextStyle(
-                color: const Color.fromRGBO(189, 189, 189, 1),
+                color: colors.onSurfaceVariant,
               ),
 
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.lock_outline,
-                color: Color.fromARGB(255, 105, 83, 205),
+                color: colors.primary,
               ),
 
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
                   width: 1.2,
-                  color: Color.fromARGB(255, 192, 191, 191),
+                  color: colors.outline,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide(
                   width: 2.4,
-                  color: Color.fromARGB(255, 105, 83, 205),
+                  color: colors.primary,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(width: 1.2, color: Colors.red),
+                borderSide: BorderSide(width: 1.2, color: colors.error),
               ),
 
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(width: 2.4, color: Colors.red),
+                borderSide: BorderSide(width: 2.4, color: colors.error),
               ),
             ),
             validator: (value) {
@@ -171,7 +174,7 @@ class _SignUpFormState extends State<SignUpForm> {
               'Forgot Password?',
               style: TextStyle(
                 fontSize: 16,
-                color: Color.fromRGBO(105, 83, 205, 1),
+                color: colors.primary,
               ),
             ),
           ),

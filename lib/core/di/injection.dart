@@ -5,12 +5,14 @@ import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
 import 'package:exercise_5_8_26/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:exercise_5_8_26/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:exercise_5_8_26/features/auth/domain/repositories/auth_repository.dart';
+import 'package:exercise_5_8_26/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:exercise_5_8_26/features/auth/domain/usecases/login_use_case.dart';
 import 'package:exercise_5_8_26/features/product/data/datasources/product_local_datasource.dart';
 import 'package:exercise_5_8_26/features/product/data/datasources/product_remote_datasource.dart';
 import 'package:exercise_5_8_26/features/product/data/repositories/product_repository_impl.dart';
 import 'package:exercise_5_8_26/features/product/domain/repositories/product_repository.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_product_ids_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_products_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_product_by_id_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_products_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/toggle_favorite_use_case.dart';
@@ -58,6 +60,9 @@ class Injection {
     repository: authRepository,
   );
 
+  static final GetCurrentUserUseCase getCurrentUserUseCase =
+      GetCurrentUserUseCase(repository: authRepository);
+
   static final AppDatabase appDatabase = AppDatabase();
 
   static final ProductLocalDataSource productLocalDataSource =
@@ -68,4 +73,7 @@ class Injection {
 
   static final GetFavoriteProductIdsUseCase getFavoriteProductIdsUseCase =
       GetFavoriteProductIdsUseCase(productRepository);
+
+  static final GetFavoriteProductsUseCase getFavoriteProductsUseCase =
+      GetFavoriteProductsUseCase(productRepository);
 }

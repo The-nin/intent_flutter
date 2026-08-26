@@ -32,10 +32,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       builder: (context, provider, child) {
         final state = provider.productDetailState;
         final product = provider.product;
+        final colors = Theme.of(context).colorScheme;
 
         if (state == UiStateEnum.loading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          return Scaffold(
+            appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
+            body: const Center(child: CircularProgressIndicator()),
           );
         }
 
@@ -64,8 +66,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         }
 
         if (state == UiStateEnum.empty || product == null) {
-          return const Scaffold(
-            body: Center(child: Text('Không tìm thấy sản phẩm')),
+          return Scaffold(
+            appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
+            body: const Center(child: Text('Không tìm thấy sản phẩm')),
           );
         }
 
@@ -132,7 +135,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   isFavorite
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: isFavorite ? Colors.red : Colors.grey,
+                                  color: isFavorite
+                                      ? colors.error
+                                      : colors.onSurfaceVariant,
                                   size: 28,
                                 ),
                               ),
@@ -146,9 +151,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                       Text(
                         '${product.price}\$',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
-                          color: Colors.redAccent,
+                          color: colors.error,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -167,9 +172,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                       Text(
                         product.description,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
-                          color: Colors.black87,
+                          color: colors.onSurface,
                           height: 1.5,
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_product_ids_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_products_use_case.dart';
 import 'package:exercise_5_8_26/features/product/domain/usecases/toggle_favorite_use_case.dart';
 import 'package:flutter/foundation.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
@@ -12,18 +13,22 @@ class ProductProvider extends ChangeNotifier {
     required GetProductByIdUseCase getProductByIdUseCase,
     required ToggleFavoriteUseCase toggleFavoriteUseCase,
     required GetFavoriteProductIdsUseCase getFavoriteProductIdsUseCase,
+    required GetFavoriteProductsUseCase getFavoriteProductsUseCase,
   }) : _getProductsUseCase = getProductsUseCase,
        _getProductByIdUseCase = getProductByIdUseCase,
        _toggleFavoriteUseCase = toggleFavoriteUseCase,
-       _getFavoriteProductIdsUseCase = getFavoriteProductIdsUseCase;
+       _getFavoriteProductIdsUseCase = getFavoriteProductIdsUseCase,
+       _getFavoriteProductsUseCase = getFavoriteProductsUseCase;
 
   final GetProductsUseCase _getProductsUseCase;
   final GetProductByIdUseCase _getProductByIdUseCase;
   final ToggleFavoriteUseCase _toggleFavoriteUseCase;
   final GetFavoriteProductIdsUseCase _getFavoriteProductIdsUseCase;
+  final GetFavoriteProductsUseCase _getFavoriteProductsUseCase;
 
   UiStateEnum _productsState = UiStateEnum.initial;
   UiStateEnum _productDetailState = UiStateEnum.initial;
+  UiStateEnum _favoriteProductsState = UiStateEnum.initial;
 
   List<Product> _products = [];
   Product? _product;
@@ -31,6 +36,8 @@ class ProductProvider extends ChangeNotifier {
   String? _errorMessage;
 
   Set<String> _favoriteProductIds = {};
+
+  List<Product> _favoriteProducts = [];
 
   UiStateEnum get productsState => _productsState;
 
@@ -42,14 +49,30 @@ class ProductProvider extends ChangeNotifier {
 
   String? get errorMessage => _errorMessage;
 
+  List<Product> get favoriteProducts => _favoriteProducts;
+
+  UiStateEnum get favoriteProductsState => _favoriteProductsState;
+
   bool isFavorite(int productId) {
     return _favoriteProductIds.contains(productId.toString());
   }
 
   Future<void> loadFavorites() async {
-    _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
-        .map((id) => id.toString())
-        .toSet();
+    _favoriteProductsState = UiStateEnum.loading;
+    notifyListeners();
+
+    try {
+      _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
+          .map((id) => id.toString())
+          .toSet();
+
+      _favoriteProducts = await _getFavoriteProductsUseCase();
+
+      _favoriteProductsState = UiStateEnum.success;
+    } catch (e) {
+      _favoriteProductsState = UiStateEnum.error;
+      _errorMessage = e.toString();
+    }
 
     notifyListeners();
   }
@@ -99,16 +122,19 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<void> toggleFavorite(int productId) async {
-    await _toggleFavoriteUseCase(productId);
+    try {
+      await _toggleFavoriteUseCase(productId);
 
-    final productIdString = productId.toString();
+      _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
+          .map((id) => id.toString())
+          .toSet();
 
-    if (_favoriteProductIds.contains(productIdString)) {
-      _favoriteProductIds.remove(productIdString);
-    } else {
-      _favoriteProductIds.add(productIdString);
+      _favoriteProducts = await _getFavoriteProductsUseCase();
+
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = e.toString();
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 }

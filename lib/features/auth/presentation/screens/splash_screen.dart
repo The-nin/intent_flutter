@@ -13,11 +13,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthProvider>().loadToken();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AuthProvider>().initialize();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -25,15 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
-                color: Color.fromARGB(255, 105, 83, 205),
+                color: colors.primary,
                 strokeWidth: 2.5,
               ),
               const SizedBox(height: 32),
               Text(
-                'Please waiting a few minutes',
+                'Please wait a moment.',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Color.fromARGB(255, 105, 83, 205),
+                  color: colors.primary,
                   fontWeight: FontWeight.w500,
                 ),
               ),

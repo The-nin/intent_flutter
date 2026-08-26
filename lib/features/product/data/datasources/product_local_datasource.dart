@@ -89,4 +89,18 @@ class ProductLocalDataSource {
       description: row['description'] as String,
     );
   }
+
+  Future<List<Product>> getFavoriteProducts() async {
+    final database = await _database.database;
+
+    final rows = await database.rawQuery('''
+    SELECT p.*
+    FROM products p
+    INNER JOIN favorite_products f
+      ON p.id = f.product_id
+    ORDER BY p.id ASC
+  ''');
+
+    return rows.map(_mapProduct).toList();
+  }
 }

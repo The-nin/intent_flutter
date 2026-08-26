@@ -14,4 +14,6 @@ abstract class ProductRepository {
   Future<void> toggleFavorite(int productId);
 
   Future<Set<int>> getFavoriteProductIds();
+
+  Future<List<Product>> getFavoriteProducts();
 }

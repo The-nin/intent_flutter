@@ -14,6 +14,8 @@ class AuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return SizedBox(
       width: double.infinity,
       height: 56,
@@ -22,24 +24,24 @@ class AuthButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 105, 83, 205),
-            disabledBackgroundColor: const Color.fromARGB(255, 105, 83, 205),
+            backgroundColor: colors.primary,
+            disabledBackgroundColor: colors.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(36),
             ),
           ),
           child: isLoading
-              ? const SizedBox(
+              ? SizedBox(
                   width: 22,
                   height: 22,
                   child: CircularProgressIndicator(
-                    color: Colors.white,
+                    color: colors.onPrimary,
                     strokeWidth: 2.5,
                   ),
                 )
               : Text(
                   text ?? '',
-                  style: const TextStyle(fontSize: 24, color: Colors.white),
+                  style: TextStyle(fontSize: 24, color: colors.onPrimary),
                 ),
         ),
       ),

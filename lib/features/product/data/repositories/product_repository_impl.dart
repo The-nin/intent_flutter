@@ -76,4 +76,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Set<int>> getFavoriteProductIds() {
     return _localDataSource.getFavoriteProductIds();
   }
+
+  @override
+  Future<List<Product>> getFavoriteProducts() {
+    return _localDataSource.getFavoriteProducts();
+  }
 }

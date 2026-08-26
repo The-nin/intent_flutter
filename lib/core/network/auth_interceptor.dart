@@ -2,9 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
 
 class AuthInterceptor extends QueuedInterceptor {
-  AuthInterceptor({required SecureStorageService storage}) : _storage = storage;
+  AuthInterceptor({
+    required SecureStorageService storage,
+    required void Function() onSessionExpired,
+  }) : _storage = storage,
+       _onSessionExpired = onSessionExpired;
 
   final SecureStorageService _storage;
+  final void Function() _onSessionExpired;
 
   final Dio _refreshDio = Dio(
     BaseOptions(
@@ -138,5 +143,6 @@ class AuthInterceptor extends QueuedInterceptor {
 
   Future<void> _clearSession() async {
     await _storage.clearTokens();
+    _onSessionExpired();
   }
 }

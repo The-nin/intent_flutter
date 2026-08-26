@@ -8,6 +8,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -18,9 +20,11 @@ class SignUpScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
+                  Text(
                     'Create Account',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   const SizedBox(height: 8),
@@ -29,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
                     'Start learning with create your account',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color.fromRGBO(189, 189, 189, 1),
+                      color: colors.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -44,12 +48,12 @@ class SignUpScreen extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: 'Already have an account? ',
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(color: colors.onSurface),
                     children: [
                       TextSpan(
                         text: 'Login',
-                        style: const TextStyle(
-                          color: Color.fromRGBO(105, 83, 205, 1),
+                        style: TextStyle(
+                          color: colors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

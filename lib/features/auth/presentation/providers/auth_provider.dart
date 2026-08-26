@@ -1,5 +1,6 @@
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/auth/domain/entities/auth_user.dart';
+import 'package:exercise_5_8_26/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:exercise_5_8_26/features/auth/domain/usecases/login_use_case.dart';
 import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,14 @@ import 'package:flutter/material.dart';
 class AuthProvider extends ChangeNotifier {
   AuthProvider({
     required LoginUseCase loginUseCase,
+    required GetCurrentUserUseCase getCurrentUserUseCase,
     required SecureStorageService storage,
   }) : _loginUseCase = loginUseCase,
+       _getCurrentUserUseCase = getCurrentUserUseCase,
        _storage = storage;
 
   final LoginUseCase _loginUseCase;
+  final GetCurrentUserUseCase _getCurrentUserUseCase;
   final SecureStorageService _storage;
 
   UiStateEnum _state = UiStateEnum.initial;
@@ -36,13 +40,13 @@ class AuthProvider extends ChangeNotifier {
 
   bool get isAuthenticated => _accessToken != null && _accessToken!.isNotEmpty;
 
-  Future<void> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     _state = UiStateEnum.loading;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final user = await _loginUseCase(username, password);
+      final user = await _loginUseCase(username.trim(), password.trim());
 
       _user = user;
       _accessToken = user.accessToken;
@@ -53,29 +57,58 @@ class AuthProvider extends ChangeNotifier {
 
       _state = UiStateEnum.success;
       notifyListeners();
+      return true;
     } catch (e) {
       _state = UiStateEnum.error;
       _errorMessage = e.toString();
       notifyListeners();
+      return false;
     }
   }
 
-  Future<void> loadToken() async {
-    _accessToken = await _storage.getAccessToken();
-    _refreshToken = await _storage.getRefreshToken();
-
-    _isInitialized = true;
-
+  Future<void> initialize() async {
+    _state = UiStateEnum.loading;
     notifyListeners();
+
+    try {
+      final accessToken = await _storage.getAccessToken();
+      final refreshToken = await _storage.getRefreshToken();
+
+      if (accessToken == null || accessToken.isEmpty) {
+        _state = UiStateEnum.initial;
+        return;
+      }
+
+      _accessToken = accessToken;
+      _refreshToken = refreshToken;
+
+      _user = await _getCurrentUserUseCase(
+        accessToken: accessToken,
+        refreshToken: refreshToken ?? '',
+      );
+
+      _state = UiStateEnum.success;
+    } catch (e) {
+      await _storage.clearTokens();
+
+      _accessToken = null;
+      _refreshToken = null;
+      _user = null;
+
+      _state = UiStateEnum.error;
+      _errorMessage = e.toString();
+    } finally {
+      _isInitialized = true;
+      notifyListeners();
+    }
   }
 
-  Future<void> logout() async {
-    await _storage.clearTokens();
-
+  void clearAuth() {
     _accessToken = null;
     _refreshToken = null;
     _user = null;
-
+    _state = UiStateEnum.initial;
+    _errorMessage = null;
     notifyListeners();
   }
 }

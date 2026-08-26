@@ -21,6 +21,8 @@ class _BannerSliderState extends State<BannerSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         SizedBox(
@@ -59,7 +61,9 @@ class _BannerSliderState extends State<BannerSlider> {
               width: _currentIndex == index ? 10 : 6,
               height: 6,
               decoration: BoxDecoration(
-                color: _currentIndex == index ? Colors.blue : Colors.grey[300],
+                color: _currentIndex == index
+                  ? colors.primary
+                  : colors.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(4),
               ),
             );

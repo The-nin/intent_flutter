@@ -95,24 +95,15 @@ class _LoginFormState extends State<LoginForm> {
               hintText: 'Enter your username',
               hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
-                prefixIcon: Icon(
-                Icons.person_outline,
-                  color: colors.primary,
-              ),
+              prefixIcon: Icon(Icons.person_outline, color: colors.primary),
 
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                  width: 1.2,
-                  color: colors.outline,
-                ),
+                borderSide: BorderSide(width: 1.2, color: colors.outline),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                  width: 2.4,
-                  color: colors.primary,
-                ),
+                borderSide: BorderSide(width: 2.4, color: colors.primary),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -149,10 +140,7 @@ class _LoginFormState extends State<LoginForm> {
             alignment: Alignment.centerRight,
             child: Text(
               'Forgot Password?',
-              style: TextStyle(
-                fontSize: 16,
-                color: colors.primary,
-              ),
+              style: TextStyle(fontSize: 16, color: colors.primary),
             ),
           ),
 

@@ -62,8 +62,8 @@ class _BannerSliderState extends State<BannerSlider> {
               height: 6,
               decoration: BoxDecoration(
                 color: _currentIndex == index
-                  ? colors.primary
-                  : colors.surfaceContainerHighest,
+                    ? colors.primary
+                    : colors.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(4),
               ),
             );

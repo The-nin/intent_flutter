@@ -1,4 +1,5 @@
 import 'package:exercise_5_8_26/core/routes/app_router.dart';
+import 'package:exercise_5_8_26/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,10 @@ import 'features/product/presentation/providers/product_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/providers/connectivity_provider.dart';
 import 'core/widgets/offline_banner.dart';
+import 'core/notifications/notification_service.dart';
 import 'features/profile/presentation/providers/logout_provider.dart';
+import 'features/profile/presentation/providers/avatar_provider.dart';
+import 'core/providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,15 +21,31 @@ void main() async {
   final themeProvider = ThemeProvider(storage: Injection.localStorageService);
   await themeProvider.loadTheme();
 
+  final localeProvider = LocaleProvider(storage: Injection.localStorageService);
+  await localeProvider.loadLocale();
+
   final authProvider = AuthProvider(
     loginUseCase: Injection.loginUseCase,
     storage: Injection.secureStorageService,
     getCurrentUserUseCase: Injection.getCurrentUserUseCase,
   );
 
+  final avatarProvider = AvatarProvider(storage: Injection.localStorageService);
+  await avatarProvider.loadAvatar();
+
   Injection.dioClient.setOnSessionExpired(authProvider.clearAuth);
 
   final appRouter = createAppRouter(authProvider);
+
+  await NotificationService.initialize(
+    onNotificationTap: (message) {
+      final route = message.data['route'];
+
+      if (route is String && route.startsWith('/')) {
+        appRouter.go(route);
+      }
+    },
+  );
 
   runApp(
     MultiProvider(
@@ -45,6 +65,8 @@ void main() async {
 
         ChangeNotifierProvider.value(value: authProvider),
 
+        ChangeNotifierProvider.value(value: localeProvider),
+
         ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
 
         ChangeNotifierProvider(
@@ -53,6 +75,8 @@ void main() async {
             onLoggedOut: authProvider.clearAuth,
           ),
         ),
+
+        ChangeNotifierProvider.value(value: avatarProvider),
       ],
       child: MyApp(appRouter: appRouter),
     ),
@@ -67,9 +91,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final localeProvider = context.watch<LocaleProvider>();
 
     return MaterialApp.router(
       routerConfig: appRouter,
+      locale: localeProvider.locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+
+      supportedLocales: AppLocalizations.supportedLocales,
       builder: (context, child) {
         return Stack(
           children: [

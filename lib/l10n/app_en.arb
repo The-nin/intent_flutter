@@ -1,0 +1,28 @@
+{
+  "appTitle": "Shop App",
+
+  "home": "Home",
+  "order": "Order",
+  "favorite": "Favorite",
+  "profile": "Profile",
+
+  "general": "General",
+  "preferences": "Preferences",
+
+  "notification": "Notification",
+  "security": "Security",
+  "language": "Language",
+  "legalAndPolicies": "Legal and Policies",
+  "helpAndSupport": "Help & Support",
+
+  "logout": "Logout",
+
+  "featureUnderDevelopment": "This feature is currently under development. Please try again later.",
+
+  "english": "English",
+  "vietnamese": "Vietnamese",
+
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
+  "systemTheme": "System"
+}

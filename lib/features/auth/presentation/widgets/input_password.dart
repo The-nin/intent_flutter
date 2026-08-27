@@ -30,10 +30,7 @@ class _InputWidgetState extends State<InputPassword> {
         hintText: 'Enter your password',
         hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
-        prefixIcon: Icon(
-          Icons.lock_outline,
-          color: colors.primary,
-        ),
+        prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
 
         suffixIcon: IconButton(
           icon: Icon(
@@ -45,17 +42,11 @@ class _InputWidgetState extends State<InputPassword> {
 
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(
-            width: 1.2,
-            color: colors.outline,
-          ),
+          borderSide: BorderSide(width: 1.2, color: colors.outline),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(
-            width: 2.4,
-            color: colors.primary,
-          ),
+          borderSide: BorderSide(width: 2.4, color: colors.primary),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),

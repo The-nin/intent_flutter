@@ -7,6 +7,7 @@ import 'package:exercise_5_8_26/features/product/presentation/screens/detail_scr
 import 'package:exercise_5_8_26/features/navigation/presentation/screens/main_screen.dart';
 import 'package:exercise_5_8_26/features/product/presentation/screens/home_screen.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/screens/profile_screen.dart';
+import 'package:exercise_5_8_26/features/webview/presentation/screens/web_view_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,6 +67,15 @@ GoRouter createAppRouter(AuthProvider authProvider) {
           final id = int.parse(state.pathParameters['id']!);
 
           return ProductDetailScreen(productId: id);
+        },
+      ),
+
+      GoRoute(
+        path: '/webview',
+        builder: (context, state) {
+          final url = state.uri.queryParameters['url'] ?? '';
+
+          return WebViewScreen(url: url);
         },
       ),
 

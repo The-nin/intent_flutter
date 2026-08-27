@@ -10,36 +10,29 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sản phẩm yêu thích'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Favorite Products'), centerTitle: true),
       body: Consumer<ProductProvider>(
         builder: (context, provider, child) {
           final favoriteProducts = provider.favoriteProducts;
 
           if (provider.favoriteProductsState == UiStateEnum.loading) {
             return Scaffold(
-              appBar: AppBar(title: const Text('Sản phẩm yêu thích')),
+              appBar: AppBar(title: const Text('Favorite Products')),
               body: const Center(child: CircularProgressIndicator()),
             );
           }
 
           if (provider.favoriteProductsState == UiStateEnum.error) {
             return Scaffold(
-              appBar: AppBar(title: const Text('Sản phẩm yêu thích')),
-              body: const Center(
-                child: Text("Có lỗi khi tải sản phẩm yêu thích."),
-              ),
+              appBar: AppBar(title: const Text('Favorite Products')),
+              body: const Center(child: Text("Cannot load favorite products.")),
             );
           }
 
           if (favoriteProducts.isEmpty) {
             return Scaffold(
-              appBar: AppBar(title: const Text('Sản phẩm yêu thích')),
-              body: const Center(
-                child: Text('Chưa có sản phẩm yêu thích nào.'),
-              ),
+              appBar: AppBar(title: const Text('Favorite Products')),
+              body: const Center(child: Text('No favorite products yet.')),
             );
           }
 

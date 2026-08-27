@@ -1,0 +1,28 @@
+{
+  "appTitle": "Ứng dụng mua sắm",
+
+  "home": "Trang chủ",
+  "order": "Đơn hàng",
+  "favorite": "Yêu thích",
+  "profile": "Hồ sơ",
+
+  "general": "Chung",
+  "preferences": "Tùy chọn",
+
+  "notification": "Thông báo",
+  "security": "Bảo mật",
+  "language": "Ngôn ngữ",
+  "legalAndPolicies": "Pháp lý và chính sách",
+  "helpAndSupport": "Trợ giúp và hỗ trợ",
+
+  "logout": "Đăng xuất",
+
+  "featureUnderDevelopment": "Tính năng này hiện đang được phát triển. Vui lòng thử lại sau.",
+
+  "english": "Tiếng Anh",
+  "vietnamese": "Tiếng Việt",
+
+  "lightTheme": "Sáng",
+  "darkTheme": "Tối",
+  "systemTheme": "Theo hệ thống"
+}

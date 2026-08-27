@@ -14,7 +14,9 @@ class ConnectivityProvider extends ChangeNotifier {
     final initialResults = await _connectivity.checkConnectivity();
     _updateState(initialResults);
 
-    _connectivity.onConnectivityChanged.listen((List<ConnectivityResult> results) {
+    _connectivity.onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
       _updateState(results);
     });
   }

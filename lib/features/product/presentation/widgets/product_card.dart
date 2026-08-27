@@ -106,7 +106,7 @@ class ProductCard extends StatelessWidget {
                               isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                                color: isFavorite
+                              color: isFavorite
                                   ? colors.error
                                   : colors.onSurfaceVariant,
                               size: 20,

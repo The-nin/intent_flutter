@@ -176,6 +176,60 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Account'**
+  String get loginTitle;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your account to continue.'**
+  String get loginSubtitle;
+
+  /// No description provided for @moveSignUpTextSpan1.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account'**
+  String get moveSignUpTextSpan1;
+
+  /// No description provided for @moveSignUpTextSpan2.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get moveSignUpTextSpan2;
+
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get loginForgotPassword;
+
+  /// No description provided for @signUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get signUpTitle;
+
+  /// No description provided for @signUpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning with create your account'**
+  String get signUpSubtitle;
+
+  /// No description provided for @moveLoginTextSpan1.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get moveLoginTextSpan1;
+
+  /// No description provided for @moveLoginTextSpan2.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get moveLoginTextSpan2;
+
   /// No description provided for @featureUnderDevelopment.
   ///
   /// In en, this message translates to:
@@ -211,6 +265,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'System'**
   String get systemTheme;
+
+  /// No description provided for @favoriteProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite Products'**
+  String get favoriteProducts;
+
+  /// No description provided for @bannerOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline. Showing saved data.'**
+  String get bannerOffline;
 }
 
 class _AppLocalizationsDelegate

@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             // BannerSlider(images: bannerImages),
             Text("hello"),
-            Text("pp"),
+            Text("asfasasd"),
 
             const SizedBox(height: 8),
 

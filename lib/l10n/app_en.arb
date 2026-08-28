@@ -17,6 +17,17 @@
 
   "logout": "Logout",
 
+  "loginTitle": "Login Account",
+  "loginSubtitle": "Sign in to your account to continue.",
+  "moveSignUpTextSpan1": "Don't have an account",
+  "moveSignUpTextSpan2": "Sign up",
+  "loginForgotPassword": "Forgot Password?",
+
+  "signUpTitle": "Create Account",
+  "signUpSubtitle": "Start learning with create your account",
+  "moveLoginTextSpan1": "Already have an account? ",
+  "moveLoginTextSpan2": "Login",
+
   "featureUnderDevelopment": "This feature is currently under development. Please try again later.",
 
   "english": "English",
@@ -24,5 +35,11 @@
 
   "lightTheme": "Light",
   "darkTheme": "Dark",
-  "systemTheme": "System"
+  "systemTheme": "System",
+
+  "favoriteProducts": "Favorite Products",
+
+  "bannerOffline": "You are offline. Showing saved data.",
+
+
 }

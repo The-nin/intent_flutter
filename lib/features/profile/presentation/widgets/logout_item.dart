@@ -16,7 +16,6 @@ class LogoutItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
 
           border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
@@ -30,6 +29,10 @@ class LogoutItem extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          tileColor: colors.surface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           leading: Icon(Icons.logout, color: colors.error),
           title: Text(
             l10n.logout,

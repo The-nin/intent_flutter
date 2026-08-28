@@ -17,17 +17,17 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<void> onPressed() async {
-    final success = await context.read<LogoutProvider>().logout();
+  Future<void> onPressedLogout() async {
+    // final success = await context.read<LogoutProvider>().logout();
 
     if (!mounted) {
       return;
     }
 
-    if (success) {
-      context.go('/login');
-      return;
-    }
+    // if (success) {
+    //   context.go('/login');
+    //   return;
+    // }
 
     final errorMessage = context.read<LogoutProvider>().errorMessage;
     ScaffoldMessenger.of(
@@ -179,9 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         return LogoutItem(
                           isLoading: isLoading,
-                          onTap: () {
-                            logoutProvider.logout();
-                          },
+                          onTap: () => onPressedLogout(),
                         );
                       },
                     ),

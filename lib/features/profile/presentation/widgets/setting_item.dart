@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SettingsItem extends StatelessWidget {
   final IconData icon;
@@ -21,7 +20,6 @@ class SettingsItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
 
           border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
@@ -35,6 +33,11 @@ class SettingsItem extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          tileColor: colors.surface,
+          splashColor: colors.primaryContainer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           leading: Icon(icon),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.w500)),
           trailing: Row(

@@ -1,3 +1,4 @@
+import 'package:exercise_5_8_26/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/login_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                 Center(
                   child: RichText(
                     text: TextSpan(
-                      text: 'Already have an account? ',
+                      text: 'Don\'t have an account? ',
                       style: TextStyle(color: colors.onSurface),
                       children: [
                         TextSpan(
@@ -60,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              context.go('/signup');
+                              context.go(SignUpScreen.route);
                             },
                         ),
                       ],

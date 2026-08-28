@@ -57,7 +57,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       ),
 
       GoRoute(
-        path: '/signup',
+        path: SignUpScreen.route,
         builder: (context, state) => const SignUpScreen(),
       ),
 

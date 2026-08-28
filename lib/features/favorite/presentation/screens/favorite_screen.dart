@@ -16,24 +16,15 @@ class FavoriteScreen extends StatelessWidget {
           final favoriteProducts = provider.favoriteProducts;
 
           if (provider.favoriteProductsState == UiStateEnum.loading) {
-            return Scaffold(
-              appBar: AppBar(title: const Text('Favorite Products')),
-              body: const Center(child: CircularProgressIndicator()),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (provider.favoriteProductsState == UiStateEnum.error) {
-            return Scaffold(
-              appBar: AppBar(title: const Text('Favorite Products')),
-              body: const Center(child: Text("Cannot load favorite products.")),
-            );
+            return const Center(child: Text("Cannot load favorite products."));
           }
 
           if (favoriteProducts.isEmpty) {
-            return Scaffold(
-              appBar: AppBar(title: const Text('Favorite Products')),
-              body: const Center(child: Text('No favorite products yet.')),
-            );
+            return const Center(child: Text('No favorite products yet.'));
           }
 
           return GridView.builder(

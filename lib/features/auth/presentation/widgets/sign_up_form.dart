@@ -146,15 +146,7 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
 
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Forgot Password?',
-              style: TextStyle(fontSize: 16, color: colors.primary),
-            ),
-          ),
-
-          const SizedBox(height: 30),
+          const SizedBox(height: 50),
 
           AuthButton(
             onPressed: onSignUpPressed,

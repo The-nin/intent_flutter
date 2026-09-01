@@ -48,6 +48,33 @@ class AppLocalizationsVi extends AppLocalizations {
   String get logout => 'Đăng xuất';
 
   @override
+  String get loginTitle => 'Login Account';
+
+  @override
+  String get loginSubtitle => 'Sign in to your account to continue.';
+
+  @override
+  String get moveSignUpTextSpan1 => 'Don\'t have an account';
+
+  @override
+  String get moveSignUpTextSpan2 => 'Sign up';
+
+  @override
+  String get loginForgotPassword => 'Forgot Password?';
+
+  @override
+  String get signUpTitle => 'Create Account';
+
+  @override
+  String get signUpSubtitle => 'Start learning with create your account';
+
+  @override
+  String get moveLoginTextSpan1 => 'Already have an account? ';
+
+  @override
+  String get moveLoginTextSpan2 => 'Login';
+
+  @override
   String get featureUnderDevelopment =>
       'Tính năng này hiện đang được phát triển. Vui lòng thử lại sau.';
 
@@ -65,4 +92,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get systemTheme => 'Theo hệ thống';
+
+  @override
+  String get favoriteProducts => 'Favorite Products';
+
+  @override
+  String get bannerOffline => 'You are offline. Showing saved data.';
 }

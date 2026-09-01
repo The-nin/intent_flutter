@@ -1,19 +1,21 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:exercise_5_8_26/core/error/failures.dart';
 import '../entities/product.dart';
 
 abstract class ProductRepository {
-  Future<List<Product>> getProducts();
+  Future<Either<Failure, List<Product>>> getProducts();
 
-  Future<Product> getProductById(int id);
+  Future<Either<Failure, Product>> getProductById(int id);
 
-  Future<List<Product>> getCachedProducts();
+  Future<Either<Failure, List<Product>>> getCachedProducts();
 
-  Future<Product?> getCachedProductById(int id);
+  Future<Either<Failure, Product?>> getCachedProductById(int id);
 
-  Future<void> saveProducts(List<Product> products);
+  Future<Either<Failure, void>> saveProducts(List<Product> products);
 
-  Future<void> toggleFavorite(int productId);
+  Future<Either<Failure, void>> toggleFavorite(int productId);
 
-  Future<Set<int>> getFavoriteProductIds();
+  Future<Either<Failure, Set<int>>> getFavoriteProductIds();
 
-  Future<List<Product>> getFavoriteProducts();
+  Future<Either<Failure, List<Product>>> getFavoriteProducts();
 }

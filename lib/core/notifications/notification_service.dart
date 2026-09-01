@@ -32,6 +32,7 @@ class NotificationService {
 
       final token = await _messaging.getToken();
       debugPrint('FCM token available: ${token != null}');
+      debugPrint('DCM token: ${token}');
 
       _messaging.onTokenRefresh.listen((newToken) {
         debugPrint('FCM token refreshed: ${newToken.isNotEmpty}');

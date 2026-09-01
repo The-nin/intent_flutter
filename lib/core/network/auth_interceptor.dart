@@ -42,10 +42,29 @@ class AuthInterceptor extends QueuedInterceptor {
     ErrorInterceptorHandler handler,
   ) async {
     final response = err.response;
+    final statusCode = response?.statusCode;
 
-    // Không phải 401 → để Dio xử lý bình thường.
-    if (response?.statusCode != 401) {
-      handler.next(err);
+    if (statusCode != 401) {
+      String? customMessage;
+      
+      switch (statusCode) {
+        case 400:
+          customMessage = 'Bad Request (400)';
+          break;
+        case 404:
+          customMessage = 'Not Found (404)';
+          break;
+        case 500:
+          customMessage = 'Internal Server Error (500)';
+          break;
+      }
+      
+      if (customMessage != null) {
+        final customError = err.copyWith(message: customMessage);
+        handler.next(customError);
+      } else {
+        handler.next(err);
+      }
       return;
     }
 

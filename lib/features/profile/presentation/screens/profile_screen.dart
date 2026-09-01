@@ -18,16 +18,15 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> onPressedLogout() async {
-    // final success = await context.read<LogoutProvider>().logout();
+    final success = await context.read<LogoutProvider>().logout();
 
     if (!mounted) {
       return;
     }
 
-    // if (success) {
-    //   context.go('/login');
-    //   return;
-    // }
+    if (success) {
+      return;
+    }
 
     final errorMessage = context.read<LogoutProvider>().errorMessage;
     ScaffoldMessenger.of(

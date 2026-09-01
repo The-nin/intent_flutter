@@ -23,7 +23,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       final location = state.matchedLocation;
 
       final isSplash = location == '/splash';
-      final publicRoutes = ['/login', '/signup'];
+      final publicRoutes = ['/login', SignUpScreen.route];
       final isPublicRoutes = publicRoutes.contains(location);
 
       if (!isInitialized) {

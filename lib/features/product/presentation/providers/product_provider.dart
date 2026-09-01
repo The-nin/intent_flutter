@@ -61,18 +61,31 @@ class ProductProvider extends ChangeNotifier {
     _favoriteProductsState = UiStateEnum.loading;
     notifyListeners();
 
-    try {
-      _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
-          .map((id) => id.toString())
-          .toSet();
+    final idsResult = await _getFavoriteProductIdsUseCase();
+    final productsResult = await _getFavoriteProductsUseCase();
 
-      _favoriteProducts = await _getFavoriteProductsUseCase();
+    idsResult.fold(
+      (failure) {
+        _favoriteProductsState = UiStateEnum.error;
+        _errorMessage = failure.message;
+      },
+      (ids) {
+        _favoriteProductIds = ids.map((id) => id.toString()).toSet();
+      },
+    );
 
-      _favoriteProductsState = UiStateEnum.success;
-    } catch (e) {
-      _favoriteProductsState = UiStateEnum.error;
-      _errorMessage = e.toString();
-    }
+    productsResult.fold(
+      (failure) {
+        _favoriteProductsState = UiStateEnum.error;
+        _errorMessage = failure.message;
+      },
+      (products) {
+        _favoriteProducts = products;
+        if (_favoriteProductsState != UiStateEnum.error) {
+          _favoriteProductsState = UiStateEnum.success;
+        }
+      },
+    );
 
     notifyListeners();
   }
@@ -80,23 +93,25 @@ class ProductProvider extends ChangeNotifier {
   Future<void> getProducts() async {
     _productsState = UiStateEnum.loading;
     _errorMessage = null;
-
     notifyListeners();
 
-    try {
-      final products = await _getProductsUseCase();
+    final result = await _getProductsUseCase();
 
-      if (products.isEmpty) {
-        _products = [];
-        _productsState = UiStateEnum.empty;
-      } else {
-        _products = products;
-        _productsState = UiStateEnum.success;
-      }
-    } catch (e) {
-      _errorMessage = e.toString();
-      _productsState = UiStateEnum.error;
-    }
+    result.fold(
+      (failure) {
+        _errorMessage = failure.message;
+        _productsState = UiStateEnum.error;
+      },
+      (products) {
+        if (products.isEmpty) {
+          _products = [];
+          _productsState = UiStateEnum.empty;
+        } else {
+          _products = products;
+          _productsState = UiStateEnum.success;
+        }
+      },
+    );
 
     notifyListeners();
   }
@@ -105,36 +120,55 @@ class ProductProvider extends ChangeNotifier {
     _productDetailState = UiStateEnum.loading;
     _errorMessage = null;
     _product = null;
-
     notifyListeners();
 
-    try {
-      final product = await _getProductByIdUseCase(id);
+    final result = await _getProductByIdUseCase(id);
 
-      _product = product;
-      _productDetailState = UiStateEnum.success;
-    } catch (e) {
-      _errorMessage = e.toString();
-      _productDetailState = UiStateEnum.error;
-    }
+    result.fold(
+      (failure) {
+        _errorMessage = failure.message;
+        _productDetailState = UiStateEnum.error;
+      },
+      (product) {
+        _product = product;
+        _productDetailState = UiStateEnum.success;
+      },
+    );
 
     notifyListeners();
   }
 
   Future<void> toggleFavorite(int productId) async {
-    try {
-      await _toggleFavoriteUseCase(productId);
+    final result = await _toggleFavoriteUseCase(productId);
 
-      _favoriteProductIds = (await _getFavoriteProductIdsUseCase())
-          .map((id) => id.toString())
-          .toSet();
+    await result.fold(
+      (failure) async {
+        _errorMessage = failure.message;
+        notifyListeners();
+      },
+      (_) async {
+        final idsResult = await _getFavoriteProductIdsUseCase();
+        idsResult.fold(
+          (failure) {
+            _errorMessage = failure.message;
+          },
+          (ids) {
+            _favoriteProductIds = ids.map((id) => id.toString()).toSet();
+          }
+        );
 
-      _favoriteProducts = await _getFavoriteProductsUseCase();
+        final productsResult = await _getFavoriteProductsUseCase();
+        productsResult.fold(
+          (failure) {
+            _errorMessage = failure.message;
+          },
+          (products) {
+            _favoriteProducts = products;
+          }
+        );
 
-      notifyListeners();
-    } catch (e) {
-      _errorMessage = e.toString();
-      notifyListeners();
-    }
+        notifyListeners();
+      },
+    );
   }
 }

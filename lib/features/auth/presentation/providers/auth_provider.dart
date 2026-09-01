@@ -45,62 +45,71 @@ class AuthProvider extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
 
-    try {
-      final user = await _loginUseCase(username.trim(), password.trim());
+    final result = await _loginUseCase(username.trim(), password.trim());
 
-      _user = user;
-      _accessToken = user.accessToken;
-      _refreshToken = user.refreshToken;
+    return await result.fold(
+      (failure) async {
+        _state = UiStateEnum.error;
+        _errorMessage = failure.message;
+        notifyListeners();
+        return false;
+      },
+      (user) async {
+        _user = user;
+        _accessToken = user.accessToken;
+        _refreshToken = user.refreshToken;
 
-      await _storage.saveAccessToken(user.accessToken);
-      await _storage.saveRefreshToken(user.refreshToken);
+        await _storage.saveAccessToken(user.accessToken);
+        await _storage.saveRefreshToken(user.refreshToken);
 
-      _state = UiStateEnum.success;
-      notifyListeners();
-      return true;
-    } catch (e) {
-      _state = UiStateEnum.error;
-      _errorMessage = e.toString();
-      notifyListeners();
-      return false;
-    }
+        _state = UiStateEnum.success;
+        notifyListeners();
+        return true;
+      },
+    );
   }
 
   Future<void> initialize() async {
     _state = UiStateEnum.loading;
     notifyListeners();
 
-    try {
-      final accessToken = await _storage.getAccessToken();
-      final refreshToken = await _storage.getRefreshToken();
+    final accessToken = await _storage.getAccessToken();
+    final refreshToken = await _storage.getRefreshToken();
 
-      if (accessToken == null || accessToken.isEmpty) {
-        _state = UiStateEnum.initial;
-        return;
-      }
-
-      _accessToken = accessToken;
-      _refreshToken = refreshToken;
-
-      _user = await _getCurrentUserUseCase(
-        accessToken: accessToken,
-        refreshToken: refreshToken ?? '',
-      );
-
-      _state = UiStateEnum.success;
-    } catch (e) {
-      await _storage.clearTokens();
-
-      _accessToken = null;
-      _refreshToken = null;
-      _user = null;
-
-      _state = UiStateEnum.error;
-      _errorMessage = e.toString();
-    } finally {
+    if (accessToken == null || accessToken.isEmpty) {
+      _state = UiStateEnum.initial;
       _isInitialized = true;
       notifyListeners();
+      return;
     }
+
+    _accessToken = accessToken;
+    _refreshToken = refreshToken;
+
+    final result = await _getCurrentUserUseCase(
+      accessToken: accessToken,
+      refreshToken: refreshToken ?? '',
+    );
+
+    await result.fold(
+      (failure) async {
+        await _storage.clearTokens();
+
+        _accessToken = null;
+        _refreshToken = null;
+        _user = null;
+
+        _state = UiStateEnum.error;
+        _errorMessage = failure.message;
+      },
+      (user) async {
+        _user = user;
+        _state = UiStateEnum.success;
+      },
+    );
+
+    _isInitialized = true;
+    notifyListeners();
   }
 
   void clearAuth() {

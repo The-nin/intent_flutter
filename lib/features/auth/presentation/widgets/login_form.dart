@@ -43,7 +43,6 @@ class _LoginFormState extends State<LoginForm> {
             backgroundColor: Colors.green,
           ),
         );
-        context.go('/home');
       } else {
         final errorMsg =
             context.read<AuthProvider>().errorMessage ??

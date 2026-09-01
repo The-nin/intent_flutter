@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
-  static String route = '/sign_up';
+  static String route = '/signup';
 
   @override
   Widget build(BuildContext context) {

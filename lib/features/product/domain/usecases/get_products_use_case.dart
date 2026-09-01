@@ -1,3 +1,5 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:exercise_5_8_26/core/error/failures.dart';
 import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
@@ -6,7 +8,7 @@ class GetProductsUseCase {
 
   GetProductsUseCase(this._repository);
 
-  Future<List<Product>> call() {
+  Future<Either<Failure, List<Product>>> call() {
     return _repository.getProducts();
   }
 }

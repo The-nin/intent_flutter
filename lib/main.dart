@@ -4,7 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'core/di/injection.dart';
+import 'package:exercise_5_8_26/core/di/locator.dart';
+import 'package:exercise_5_8_26/core/storage/local_storage_service.dart';
+import 'package:exercise_5_8_26/core/storage/secure_storage_service.dart';
+import 'package:exercise_5_8_26/core/network/dio_client.dart';
+import 'package:exercise_5_8_26/features/auth/domain/usecases/login_use_case.dart';
+import 'package:exercise_5_8_26/features/auth/domain/usecases/get_current_user_usecase.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_products_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_product_by_id_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/toggle_favorite_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_product_ids_use_case.dart';
+import 'package:exercise_5_8_26/features/product/domain/usecases/get_favorite_products_use_case.dart';
 import 'features/auth/presentation/providers/auth_provider.dart';
 import 'features/product/presentation/providers/product_provider.dart';
 import 'core/providers/theme_provider.dart';
@@ -14,26 +24,30 @@ import 'core/notifications/notification_service.dart';
 import 'features/profile/presentation/providers/logout_provider.dart';
 import 'features/profile/presentation/providers/avatar_provider.dart';
 import 'core/providers/locale_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  setupLocator();
 
-  final themeProvider = ThemeProvider(storage: Injection.localStorageService);
+  final themeProvider = ThemeProvider(storage: locator<LocalStorageService>());
   await themeProvider.loadTheme();
 
-  final localeProvider = LocaleProvider(storage: Injection.localStorageService);
+  final localeProvider = LocaleProvider(storage: locator<LocalStorageService>());
   await localeProvider.loadLocale();
 
   final authProvider = AuthProvider(
-    loginUseCase: Injection.loginUseCase,
-    storage: Injection.secureStorageService,
-    getCurrentUserUseCase: Injection.getCurrentUserUseCase,
+    loginUseCase: locator<LoginUseCase>(),
+    storage: locator<SecureStorageService>(),
+    getCurrentUserUseCase: locator<GetCurrentUserUseCase>(),
   );
 
-  final avatarProvider = AvatarProvider(storage: Injection.localStorageService);
+  final avatarProvider = AvatarProvider(storage: locator<LocalStorageService>());
   await avatarProvider.loadAvatar();
 
-  Injection.dioClient.setOnSessionExpired(authProvider.clearAuth);
+  locator<DioClient>().setOnSessionExpired(authProvider.clearAuth);
 
   final appRouter = createAppRouter(authProvider);
 
@@ -47,17 +61,20 @@ void main() async {
     },
   );
 
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => ProductProvider(
-            getProductsUseCase: Injection.getProductsUseCase,
-            getProductByIdUseCase: Injection.getProductByIdUseCase,
-            toggleFavoriteUseCase: Injection.toggleFavoriteUseCase,
+            getProductsUseCase: locator<GetProductsUseCase>(),
+            getProductByIdUseCase: locator<GetProductByIdUseCase>(),
+            toggleFavoriteUseCase: locator<ToggleFavoriteUseCase>(),
             getFavoriteProductIdsUseCase:
-                Injection.getFavoriteProductIdsUseCase,
-            getFavoriteProductsUseCase: Injection.getFavoriteProductsUseCase,
+                locator<GetFavoriteProductIdsUseCase>(),
+            getFavoriteProductsUseCase: locator<GetFavoriteProductsUseCase>(),
           ),
         ),
 
@@ -71,7 +88,7 @@ void main() async {
 
         ChangeNotifierProvider(
           create: (_) => LogoutProvider(
-            storage: Injection.secureStorageService,
+            storage: locator<SecureStorageService>(),
             onLoggedOut: authProvider.clearAuth,
           ),
         ),

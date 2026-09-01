@@ -46,7 +46,7 @@ class AuthInterceptor extends QueuedInterceptor {
 
     if (statusCode != 401) {
       String? customMessage;
-      
+
       switch (statusCode) {
         case 400:
           customMessage = 'Bad Request (400)';
@@ -58,7 +58,7 @@ class AuthInterceptor extends QueuedInterceptor {
           customMessage = 'Internal Server Error (500)';
           break;
       }
-      
+
       if (customMessage != null) {
         final customError = err.copyWith(message: customMessage);
         handler.next(customError);

@@ -154,7 +154,7 @@ class ProductProvider extends ChangeNotifier {
           },
           (ids) {
             _favoriteProductIds = ids.map((id) => id.toString()).toSet();
-          }
+          },
         );
 
         final productsResult = await _getFavoriteProductsUseCase();
@@ -164,7 +164,7 @@ class ProductProvider extends ChangeNotifier {
           },
           (products) {
             _favoriteProducts = products;
-          }
+          },
         );
 
         notifyListeners();

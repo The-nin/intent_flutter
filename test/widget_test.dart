@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
 void main() {
   testWidgets('app builds the splash screen', (WidgetTester tester) async {
     setupLocator();
-    
+
     final authProvider = AuthProvider(
       loginUseCase: locator<LoginUseCase>(),
       getCurrentUserUseCase: locator<GetCurrentUserUseCase>(),

@@ -23,42 +23,60 @@ final locator = GetIt.instance;
 void setupLocator() {
   // Shared - Secure Services
   locator.registerLazySingleton<LocalStorageService>(
-      () => LocalStorageService());
+    () => LocalStorageService(),
+  );
   locator.registerLazySingleton<SecureStorageService>(
-      () => SecureStorageService());
+    () => SecureStorageService(),
+  );
 
   locator.registerLazySingleton<DioClient>(
-      () => DioClient(storage: locator<SecureStorageService>()));
+    () => DioClient(storage: locator<SecureStorageService>()),
+  );
   locator.registerLazySingleton<AppDatabase>(() => AppDatabase());
 
   // Data Sources
   locator.registerLazySingleton<ProductRemoteDataSource>(
-      () => ProductRemoteDataSource(dio: locator<DioClient>().dio));
+    () => ProductRemoteDataSource(dio: locator<DioClient>().dio),
+  );
   locator.registerLazySingleton<ProductLocalDataSource>(
-      () => ProductLocalDataSource(database: locator<AppDatabase>()));
+    () => ProductLocalDataSource(database: locator<AppDatabase>()),
+  );
   locator.registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSource(dio: locator<DioClient>().dio));
+    () => AuthRemoteDataSource(dio: locator<DioClient>().dio),
+  );
 
   // Repositories
-  locator.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
-      locator<ProductRemoteDataSource>(), locator<ProductLocalDataSource>()));
-  locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
-      remoteDataSource: locator<AuthRemoteDataSource>()));
+  locator.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(
+      locator<ProductRemoteDataSource>(),
+      locator<ProductLocalDataSource>(),
+    ),
+  );
+  locator.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(remoteDataSource: locator<AuthRemoteDataSource>()),
+  );
 
   // Use Cases
   locator.registerLazySingleton<GetProductsUseCase>(
-      () => GetProductsUseCase(locator<ProductRepository>()));
+    () => GetProductsUseCase(locator<ProductRepository>()),
+  );
   locator.registerLazySingleton<GetProductByIdUseCase>(
-      () => GetProductByIdUseCase(locator<ProductRepository>()));
+    () => GetProductByIdUseCase(locator<ProductRepository>()),
+  );
   locator.registerLazySingleton<ToggleFavoriteUseCase>(
-      () => ToggleFavoriteUseCase(locator<ProductRepository>()));
+    () => ToggleFavoriteUseCase(locator<ProductRepository>()),
+  );
   locator.registerLazySingleton<GetFavoriteProductIdsUseCase>(
-      () => GetFavoriteProductIdsUseCase(locator<ProductRepository>()));
+    () => GetFavoriteProductIdsUseCase(locator<ProductRepository>()),
+  );
   locator.registerLazySingleton<GetFavoriteProductsUseCase>(
-      () => GetFavoriteProductsUseCase(locator<ProductRepository>()));
+    () => GetFavoriteProductsUseCase(locator<ProductRepository>()),
+  );
 
   locator.registerLazySingleton<LoginUseCase>(
-      () => LoginUseCase(repository: locator<AuthRepository>()));
+    () => LoginUseCase(repository: locator<AuthRepository>()),
+  );
   locator.registerLazySingleton<GetCurrentUserUseCase>(
-      () => GetCurrentUserUseCase(repository: locator<AuthRepository>()));
+    () => GetCurrentUserUseCase(repository: locator<AuthRepository>()),
+  );
 }

@@ -29,13 +29,15 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   setupLocator();
 
   final themeProvider = ThemeProvider(storage: locator<LocalStorageService>());
   await themeProvider.loadTheme();
 
-  final localeProvider = LocaleProvider(storage: locator<LocalStorageService>());
+  final localeProvider = LocaleProvider(
+    storage: locator<LocalStorageService>(),
+  );
   await localeProvider.loadLocale();
 
   final authProvider = AuthProvider(
@@ -44,7 +46,9 @@ void main() async {
     getCurrentUserUseCase: locator<GetCurrentUserUseCase>(),
   );
 
-  final avatarProvider = AvatarProvider(storage: locator<LocalStorageService>());
+  final avatarProvider = AvatarProvider(
+    storage: locator<LocalStorageService>(),
+  );
   await avatarProvider.loadAvatar();
 
   locator<DioClient>().setOnSessionExpired(authProvider.clearAuth);

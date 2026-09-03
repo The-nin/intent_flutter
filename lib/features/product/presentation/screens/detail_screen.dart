@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -36,28 +38,32 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
         if (state == UiStateEnum.loading) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
+            appBar: AppBar(
+              title: Text(LocaleKeys.detailScreen.detailTitle.tr()),
+            ),
             body: const Center(child: CircularProgressIndicator()),
           );
         }
 
         if (state == UiStateEnum.error) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
+            appBar: AppBar(
+              title: Text(LocaleKeys.detailScreen.detailTitle.tr()),
+            ),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    'Không thể tải sản phẩm',
-                    style: TextStyle(fontSize: 18),
+                  Text(
+                    LocaleKeys.products.errorMessage.tr(),
+                    style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       provider.getProductById(widget.productId);
                     },
-                    child: const Text('Thử lại'),
+                    child: Text(LocaleKeys.products.tryAgainButton.tr()),
                   ),
                 ],
               ),
@@ -67,8 +73,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
         if (state == UiStateEnum.empty || product == null) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Chi tiết sản phẩm')),
-            body: const Center(child: Text('Không tìm thấy sản phẩm')),
+            appBar: AppBar(
+              title: Text(LocaleKeys.detailScreen.detailTitle.tr()),
+            ),
+            body: Center(child: Text(LocaleKeys.products.emptyMessage.tr())),
           );
         }
 
@@ -141,7 +149,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   size: 28,
                                 ),
                               ),
-                              Text(isFavorite ? 'Đã thích' : 'Yêu thích'),
+                              Text(
+                                isFavorite
+                                    ? LocaleKeys.detailScreen.liked.tr()
+                                    : LocaleKeys.detailScreen.like.tr(),
+                              ),
                             ],
                           ),
                         ],
@@ -160,8 +172,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                       const SizedBox(height: 16),
 
-                      const Text(
-                        'Mô tả sản phẩm',
+                      Text(
+                        LocaleKeys.detailScreen.description.tr(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

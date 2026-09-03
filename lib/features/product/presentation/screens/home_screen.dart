@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,13 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Có lỗi xảy ra', style: TextStyle(fontSize: 18)),
+                Text(
+                  LocaleKeys.products.emptyMessage.tr(),
+                  style: TextStyle(fontSize: 18),
+                ),
 
                 const SizedBox(height: 16),
 
                 ElevatedButton(
                   onPressed: provider.getProducts,
-                  child: const Text('Thử lại'),
+                  child: Text(LocaleKeys.common.retry.tr()),
                 ),
               ],
             ),
@@ -63,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
 
         if (state == UiStateEnum.empty) {
-          return const Center(child: Text('Không có sản phẩm'));
+          return Center(child: Text(LocaleKeys.products.emptyMessage.tr()));
         }
 
         final filteredProducts = provider.products
@@ -87,12 +92,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 8),
 
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Sản phẩm nổi bật',
+                  LocaleKeys.homeScreen.featuredProducts.tr(),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -122,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Trang chủ'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(LocaleKeys.homeScreen.homeTitle.tr()),
+        centerTitle: true,
+      ),
       body: SafeArea(child: _buildBody()),
     );
   }

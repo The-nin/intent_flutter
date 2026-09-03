@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Sign up is unavailable until a backend is connected.'),
-      ),
+      SnackBar(content: Text(LocaleKeys.authentication.signUpUnavailable.tr())),
     );
   }
 
@@ -47,7 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Username',
+            LocaleKeys.authentication.signUpUsername.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
@@ -57,7 +57,7 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: usernameController,
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              hintText: 'Enter your username',
+              hintText: LocaleKeys.authentication.loginUsernameHint.tr(),
               hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
               prefixIcon: Icon(Icons.person_outline, color: colors.primary),
@@ -82,7 +82,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return LocaleKeys.authentication.signUpUsernameWarning.tr();
               }
               return null;
             },
@@ -91,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 12),
 
           Text(
-            'Password',
+            LocaleKeys.authentication.signUpPassword.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
@@ -102,7 +102,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 12),
 
           Text(
-            'Confirm password',
+            LocaleKeys.authentication.signUpConfirmPassword.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
@@ -112,7 +112,8 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: confirmPasswordController,
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              hintText: 'Enter your confirm password',
+              hintText: LocaleKeys.authentication.signUpConfirmPasswordHint
+                  .tr(),
               hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
               prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
@@ -137,10 +138,12 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter confirm password';
+                return LocaleKeys.authentication.signUpConfirmPasswordWarning
+                    .tr();
               }
               if (value != passwordController.text) {
-                return 'Passwords do not match';
+                return LocaleKeys.authentication.errorConfirmPasswordWarning
+                    .tr();
               }
               return null;
             },
@@ -150,7 +153,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
           AuthButton(
             onPressed: onSignUpPressed,
-            text: 'Sign Up',
+            text: LocaleKeys.authentication.signUpButton.tr(),
             isLoading: false,
           ),
         ],

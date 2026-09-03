@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/input_password.dart';
 import 'package:flutter/material.dart';
@@ -27,37 +29,26 @@ class _LoginFormState extends State<LoginForm> {
     final password = passwordController.text;
     final errorColor = Theme.of(context).colorScheme.error;
 
-    try {
-      final success = await context.read<AuthProvider>().login(
-        username,
-        password,
-      );
+    final success = await context.read<AuthProvider>().login(
+      username,
+      password,
+    );
 
-      if (!mounted) return;
+    if (!mounted) return;
 
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login successful!'),
-            backgroundColor: Colors.green,
-          ),
-        );
-      } else {
-        final errorMsg =
-            context.read<AuthProvider>().errorMessage ??
-            'Login failed. Please try again.';
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMsg), backgroundColor: errorColor),
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-
+    if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Login failed. Please try again.'),
-          backgroundColor: errorColor,
+          content: Text(LocaleKeys.authentication.loginSuccess.tr()),
+          backgroundColor: Colors.green,
         ),
+      );
+    } else {
+      final errorMsg =
+          context.read<AuthProvider>().errorMessage ??
+          LocaleKeys.authentication.loginError.tr();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMsg), backgroundColor: errorColor),
       );
     }
   }
@@ -80,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Username',
+            LocaleKeys.authentication.loginUsername.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
@@ -90,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
             controller: usernameController,
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
-              hintText: 'Enter your username',
+              hintText: LocaleKeys.authentication.loginUsernameHint.tr(),
               hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
               prefixIcon: Icon(Icons.person_outline, color: colors.primary),
@@ -115,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return LocaleKeys.authentication.loginUsernameWarning.tr();
               }
               return null;
             },
@@ -124,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 12),
 
           Text(
-            'Password',
+            LocaleKeys.authentication.loginPassword.tr(),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
 
@@ -137,7 +128,7 @@ class _LoginFormState extends State<LoginForm> {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              'Forgot Password?',
+              LocaleKeys.authentication.loginForgotPassword.tr(),
               style: TextStyle(fontSize: 16, color: colors.primary),
             ),
           ),
@@ -148,7 +139,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: authProvider.state == UiStateEnum.loading
                 ? null
                 : onLoginPressed,
-            text: 'Login',
+            text: LocaleKeys.authentication.loginButton.tr(),
             isLoading: authProvider.state == UiStateEnum.loading,
           ),
         ],

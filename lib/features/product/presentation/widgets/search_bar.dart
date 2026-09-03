@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatelessWidget {
@@ -20,7 +22,7 @@ class CustomSearchBar extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           icon: Icon(Icons.search, color: colors.onSurfaceVariant),
-          hintText: 'Tìm kiếm sản phẩm...',
+          hintText: LocaleKeys.homeScreen.searchForProducts.tr(),
           border: InputBorder.none,
         ),
       ),

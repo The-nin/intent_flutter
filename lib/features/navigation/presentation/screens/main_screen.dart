@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key, required this.navigationShell});
@@ -50,17 +52,23 @@ class MainScreen extends StatelessWidget {
 
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
 
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: LocaleKeys.bottomNavigation.home.tr(),
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_bag),
-              label: 'Order',
+              label: LocaleKeys.bottomNavigation.order.tr(),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
-              label: 'Favorite',
+              label: LocaleKeys.bottomNavigation.favorite.tr(),
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: LocaleKeys.bottomNavigation.profile.tr(),
+            ),
           ],
         ),
       ),

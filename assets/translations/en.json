@@ -1,0 +1,97 @@
+{
+    "app": {
+        "title": "Shop App"
+    },
+    "profile": {
+        "profileTitle": "Profile",
+        "general": "General",
+        "preferences": "Preferences",
+        "notification": "Notification",
+        "security": "Security",
+        "language": "Language",
+        "legalAndPolicies": "Legal and Policies",
+        "helpAndSupport": "Help & Support",
+        "logout": "Logout",
+        "errorLogoutMessage": "Logout failed.",
+        "featureUnderDevelopment": "This feature is currently under development. Please try again later.",
+        "errorAvatarMessage": "Cannot select image.",
+        "camera": "Camera",
+        "gallery": "Gallery",
+        "openWebView": "Open WebView"
+    },
+    "authentication": {
+        "loginTitle": "Login Account",
+        "loginSubtitle": "Sign in to your account to continue.",
+        "moveSignUpTextSpan1": "Don't have an account? ",
+        "moveSignUpTextSpan2": "Sign up",
+        "loginForgotPassword": "Forgot Password?",
+        "loginUsername": "Username",
+        "loginPassword": "Password",
+        "loginUsernameHint": "Enter your username",
+        "loginUsernameWarning": "Please enter your username",
+        "loginPasswordHint": "Enter your password",
+        "loginPasswordWarning": "Please enter your password",
+        "loginButton": "Login",
+        "loginSuccess": "Login successfull",
+        "loginError": "Login failed. Please try again.",
+        "signUpTitle": "Create Account",
+        "signUpSubtitle": "Start learning with create your account",
+        "moveLoginTextSpan1": "Already have an account? ",
+        "moveLoginTextSpan2": "Login",
+        "signUpUsername": "Username",
+        "signUpPassword": "Password",
+        "signUpConfirmPassword": "Confirm Password",
+        "signUpUsernameHint": "Enter your username",
+        "signUpPasswordHint": "Enter your password",
+        "signUpConfirmPasswordHint": "Enter your confirm password",
+        "signUpUsernameWarning": "Please enter your username",
+        "signUpPasswordWarning": "Please enter your password",
+        "signUpConfirmPasswordWarning": "Please enter your confirm password",
+        "errorConfirmPasswordWarning": "Password and confirm password do not match",
+        "signUpUnavailable": "Sign up is unavailable until a backend is connected.",
+        "signUpButton": "Sign up",
+        "splashMessage": "Please wait a moment."
+    },
+    "bottomNavigation": {
+        "home": "Home",
+        "order": "Order",
+        "favorite": "Favorite",
+        "profile": "Profile"
+    },
+    "theme": {
+        "lightTheme": "Light",
+        "darkTheme": "Dark",
+        "systemTheme": "System"
+    },
+    "homeScreen": {
+        "homeTitle": "Home",
+        "featuredProducts": "Featured Products",
+        "searchForProducts": "Search for products..."
+    },
+    "favoriteScreen": {
+        "favoriteTitle": "Favorite Products",
+        "errorMessage": "Cannot load favorite products.",
+        "emptyMessage": "No favorite products yet."
+    },
+    "common": {
+        "bannerOffline": "You are offline. Showing saved data.",
+        "retry": "Retry"
+    },
+    "detailScreen": {
+        "detailTitle": "Product details",
+        "description": "Description",
+        "like": "Like",
+        "liked": "Liked"
+    },
+    "products": {
+        "emptyMessage": "No products found",
+        "tryAgainButton": "Retry",
+        "loadingMessage": "Loading...",
+        "errorMessage": "Cannot load products"
+    },
+    "webView": {
+        "title": "Web Content",
+        "error": "Cannot load web content",
+        "errorLoadUrl": "Cannot load URL or URL invalid"
+    }
+}

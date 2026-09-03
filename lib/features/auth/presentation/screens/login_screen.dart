@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/login_form.dart';
 import 'package:flutter/gestures.dart';
@@ -24,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Login Account',
+                      LocaleKeys.authentication.loginTitle.tr(),
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -32,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 8),
 
                     Text(
-                      'Sign in to your account to continue.',
+                      LocaleKeys.authentication.loginSubtitle.tr(),
                       style: TextStyle(
                         fontSize: 16,
                         color: colors.onSurfaceVariant,
@@ -50,11 +52,12 @@ class LoginScreen extends StatelessWidget {
                 Center(
                   child: RichText(
                     text: TextSpan(
-                      text: 'Don\'t have an account? ',
+                      text: LocaleKeys.authentication.moveSignUpTextSpan1.tr(),
                       style: TextStyle(color: colors.onSurface),
                       children: [
                         TextSpan(
-                          text: 'Sign up',
+                          text: LocaleKeys.authentication.moveSignUpTextSpan2
+                              .tr(),
                           style: TextStyle(
                             color: colors.primary,
                             fontWeight: FontWeight.bold,

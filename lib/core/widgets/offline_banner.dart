@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exercise_5_8_26/core/providers/connectivity_provider.dart';
@@ -68,7 +70,7 @@ class _OfflineBannerState extends State<OfflineBanner> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Bạn đang offline. \nĐang hiển thị dữ liệu đã lưu.',
+                    LocaleKeys.common.bannerOffline.tr(),
                     style: TextStyle(color: colors.onSurface),
                   ),
                 ),

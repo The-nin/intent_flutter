@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 
 class InputPassword extends StatefulWidget {
@@ -27,7 +29,7 @@ class _InputWidgetState extends State<InputPassword> {
       obscureText: !_isPasswordVisible,
       style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
-        hintText: 'Enter your password',
+        hintText: LocaleKeys.authentication.loginPasswordHint.tr(),
         hintStyle: TextStyle(color: colors.onSurfaceVariant),
 
         prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
@@ -60,7 +62,7 @@ class _InputWidgetState extends State<InputPassword> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your password';
+          return LocaleKeys.authentication.loginPasswordWarning.tr();
         }
         return null;
       },

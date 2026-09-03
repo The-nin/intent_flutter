@@ -6,8 +6,11 @@ import 'package:exercise_5_8_26/features/favorite/presentation/screens/favorite_
 import 'package:exercise_5_8_26/features/product/presentation/screens/detail_screen.dart';
 import 'package:exercise_5_8_26/features/navigation/presentation/screens/main_screen.dart';
 import 'package:exercise_5_8_26/features/product/presentation/screens/home_screen.dart';
+import 'package:exercise_5_8_26/features/profile/presentation/screens/language_screen.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/screens/profile_screen.dart';
 import 'package:exercise_5_8_26/features/webview/presentation/screens/web_view_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -79,6 +82,13 @@ GoRouter createAppRouter(AuthProvider authProvider) {
         },
       ),
 
+      GoRoute(
+        path: '/language',
+        builder: (context, state) {
+          return const LanguageScreen();
+        },
+      ),
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return MainScreen(navigationShell: navigationShell);
@@ -100,7 +110,9 @@ GoRouter createAppRouter(AuthProvider authProvider) {
               GoRoute(
                 path: '/order',
                 builder: (context, state) {
-                  return const Center(child: Text('My Order'));
+                  return Center(
+                    child: Text(LocaleKeys.bottomNavigation.order.tr()),
+                  );
                 },
               ),
             ],

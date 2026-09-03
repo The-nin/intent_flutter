@@ -1,4 +1,5 @@
-import 'package:exercise_5_8_26/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 
 class LogoutItem extends StatelessWidget {
@@ -10,7 +11,6 @@ class LogoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -35,7 +35,7 @@ class LogoutItem extends StatelessWidget {
           ),
           leading: Icon(Icons.logout, color: colors.error),
           title: Text(
-            l10n.logout,
+            LocaleKeys.profile.logout.tr(),
             style: TextStyle(color: colors.error, fontWeight: FontWeight.w600),
           ),
           trailing: isLoading

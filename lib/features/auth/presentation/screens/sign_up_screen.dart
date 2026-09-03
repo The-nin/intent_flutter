@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Create Account',
+                      LocaleKeys.authentication.signUpTitle.tr(),
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -32,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 8),
 
                     Text(
-                      'Start learning with create your account',
+                      LocaleKeys.authentication.signUpSubtitle.tr(),
                       style: TextStyle(
                         fontSize: 16,
                         color: colors.onSurfaceVariant,
@@ -49,11 +51,12 @@ class SignUpScreen extends StatelessWidget {
                 Center(
                   child: RichText(
                     text: TextSpan(
-                      text: 'Already have an account? ',
+                      text: LocaleKeys.authentication.moveLoginTextSpan1.tr(),
                       style: TextStyle(color: colors.onSurface),
                       children: [
                         TextSpan(
-                          text: 'Login',
+                          text: LocaleKeys.authentication.moveLoginTextSpan2
+                              .tr(),
                           style: TextStyle(
                             color: colors.primary,
                             fontWeight: FontWeight.bold,

@@ -1,5 +1,4 @@
 import 'package:exercise_5_8_26/core/routes/app_router.dart';
-import 'package:exercise_5_8_26/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -23,22 +22,19 @@ import 'core/widgets/offline_banner.dart';
 import 'core/notifications/notification_service.dart';
 import 'features/profile/presentation/providers/logout_provider.dart';
 import 'features/profile/presentation/providers/avatar_provider.dart';
-import 'core/providers/locale_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyLocalization.ensureInitialized();
 
   setupLocator();
 
   final themeProvider = ThemeProvider(storage: locator<LocalStorageService>());
   await themeProvider.loadTheme();
-
-  final localeProvider = LocaleProvider(
-    storage: locator<LocalStorageService>(),
-  );
-  await localeProvider.loadLocale();
 
   final authProvider = AuthProvider(
     loginUseCase: locator<LoginUseCase>(),
@@ -65,41 +61,43 @@ void main() async {
     },
   );
 
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => ProductProvider(
-            getProductsUseCase: locator<GetProductsUseCase>(),
-            getProductByIdUseCase: locator<GetProductByIdUseCase>(),
-            toggleFavoriteUseCase: locator<ToggleFavoriteUseCase>(),
-            getFavoriteProductIdsUseCase:
-                locator<GetFavoriteProductIdsUseCase>(),
-            getFavoriteProductsUseCase: locator<GetFavoriteProductsUseCase>(),
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('vi')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => ProductProvider(
+              getProductsUseCase: locator<GetProductsUseCase>(),
+              getProductByIdUseCase: locator<GetProductByIdUseCase>(),
+              toggleFavoriteUseCase: locator<ToggleFavoriteUseCase>(),
+              getFavoriteProductIdsUseCase:
+                  locator<GetFavoriteProductIdsUseCase>(),
+              getFavoriteProductsUseCase: locator<GetFavoriteProductsUseCase>(),
+            ),
           ),
-        ),
 
-        ChangeNotifierProvider.value(value: themeProvider),
+          ChangeNotifierProvider.value(value: themeProvider),
 
-        ChangeNotifierProvider.value(value: authProvider),
+          ChangeNotifierProvider.value(value: authProvider),
 
-        ChangeNotifierProvider.value(value: localeProvider),
+          ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
 
-        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
-
-        ChangeNotifierProvider(
-          create: (_) => LogoutProvider(
-            storage: locator<SecureStorageService>(),
-            onLoggedOut: authProvider.clearAuth,
+          ChangeNotifierProvider(
+            create: (_) => LogoutProvider(
+              storage: locator<SecureStorageService>(),
+              onLoggedOut: authProvider.clearAuth,
+            ),
           ),
-        ),
 
-        ChangeNotifierProvider.value(value: avatarProvider),
-      ],
-      child: MyApp(appRouter: appRouter),
+          ChangeNotifierProvider.value(value: avatarProvider),
+        ],
+        child: MyApp(appRouter: appRouter),
+      ),
     ),
   );
 }
@@ -112,14 +110,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
-    final localeProvider = context.watch<LocaleProvider>();
 
     return MaterialApp.router(
       routerConfig: appRouter,
-      locale: localeProvider.locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
 
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
       builder: (context, child) {
         return Stack(
           children: [

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const SizedBox(height: 32),
               Text(
-                'Please wait a moment.',
+                LocaleKeys.authentication.splashMessage.tr(),
                 style: TextStyle(
                   fontSize: 20,
                   color: colors.primary,

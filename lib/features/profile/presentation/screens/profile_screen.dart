@@ -3,11 +3,12 @@ import 'package:exercise_5_8_26/features/profile/presentation/providers/avatar_p
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/logout_item.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/setting_item.dart';
-import 'package:exercise_5_8_26/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -29,18 +30,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     final errorMessage = context.read<LogoutProvider>().errorMessage;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(errorMessage ?? 'Logout failed.')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          errorMessage ?? LocaleKeys.profile.errorLogoutMessage.tr(),
+        ),
+      ),
+    );
   }
 
   void showFeatureNotAvailable(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'This feature is currently under development. Please try again later.',
-        ),
-      ),
+      SnackBar(content: Text(LocaleKeys.profile.featureUnderDevelopment.tr())),
     );
   }
 
@@ -53,12 +54,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt_outlined),
-                title: const Text('Chụp ảnh'),
+                title: Text(LocaleKeys.profile.camera.tr()),
                 onTap: () => Navigator.pop(context, ImageSource.camera),
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library_outlined),
-                title: const Text('Chọn từ thư viện'),
+                title: Text(LocaleKeys.profile.gallery.tr()),
                 onTap: () => Navigator.pop(context, ImageSource.gallery),
               ),
             ],
@@ -74,7 +75,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted && avatarProvider.state == UiStateEnum.error) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(avatarProvider.errorMessage ?? 'Không thể chọn ảnh.'),
+            content: Text(
+              avatarProvider.errorMessage ??
+                  LocaleKeys.profile.errorAvatarMessage.tr(),
+            ),
           ),
         );
       }
@@ -83,9 +87,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final currentLocale = context.locale;
+
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.profile), centerTitle: true),
+      key: ValueKey(currentLocale.languageCode),
+      appBar: AppBar(
+        title: Text(LocaleKeys.profile.profileTitle.tr()),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -117,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     '/webview?url=${Uri.encodeComponent('https://dummyjson.com')}',
                   );
                 },
-                child: const Text('Open WebView'),
+                child: Text(LocaleKeys.profile.openWebView.tr()),
               ),
 
               Padding(
@@ -126,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      l10n.general,
+                      LocaleKeys.profile.general.tr(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -135,24 +144,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     SettingsItem(
                       icon: Icons.notifications_active_outlined,
-                      title: l10n.notification,
+                      title: LocaleKeys.profile.notification.tr(),
                       onTap: () => showFeatureNotAvailable(context),
                     ),
 
                     SettingsItem(
                       icon: Icons.security_outlined,
-                      title: l10n.security,
+                      title: LocaleKeys.profile.security.tr(),
                       onTap: () => showFeatureNotAvailable(context),
                     ),
 
                     SettingsItem(
                       icon: Icons.travel_explore_outlined,
-                      title: l10n.language,
-                      onTap: () => showFeatureNotAvailable(context),
+                      title: LocaleKeys.profile.language.tr(),
+                      onTap: () {
+                        context.push('/language');
+                      },
                     ),
 
                     Text(
-                      l10n.preferences,
+                      LocaleKeys.profile.preferences.tr(),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -161,13 +172,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     SettingsItem(
                       icon: Icons.shield_outlined,
-                      title: l10n.legalAndPolicies,
+                      title: LocaleKeys.profile.legalAndPolicies.tr(),
                       onTap: () => showFeatureNotAvailable(context),
                     ),
 
                     SettingsItem(
                       icon: Icons.help_outline,
-                      title: l10n.helpAndSupport,
+                      title: LocaleKeys.profile.helpAndSupport.tr(),
                       onTap: () => showFeatureNotAvailable(context),
                     ),
 

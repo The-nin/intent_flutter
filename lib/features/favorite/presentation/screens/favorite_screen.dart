@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import 'package:exercise_5_8_26/features/product/presentation/widgets/product_card.dart';
@@ -10,7 +12,10 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorite Products'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(LocaleKeys.favoriteScreen.favoriteTitle.tr()),
+        centerTitle: true,
+      ),
       body: Consumer<ProductProvider>(
         builder: (context, provider, child) {
           final favoriteProducts = provider.favoriteProducts;
@@ -20,11 +25,15 @@ class FavoriteScreen extends StatelessWidget {
           }
 
           if (provider.favoriteProductsState == UiStateEnum.error) {
-            return const Center(child: Text("Cannot load favorite products."));
+            return Center(
+              child: Text(LocaleKeys.favoriteScreen.errorMessage.tr()),
+            );
           }
 
           if (favoriteProducts.isEmpty) {
-            return const Center(child: Text('No favorite products yet.'));
+            return Center(
+              child: Text(LocaleKeys.favoriteScreen.emptyMessage.tr()),
+            );
           }
 
           return GridView.builder(

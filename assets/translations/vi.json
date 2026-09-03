@@ -1,0 +1,97 @@
+{
+    "app": {
+        "title": "Shop App"
+    },
+    "profile": {
+        "profileTitle": "Hồ sơ",
+        "general": "Cài đặt chung",
+        "preferences": "Tùy chọn",
+        "notification": "Thông báo",
+        "security": "Bảo mật",
+        "language": "Ngôn ngữ",
+        "legalAndPolicies": "Pháp lý và chính sách",
+        "helpAndSupport": "Trợ giúp và hỗ trợ",
+        "logout": "Đăng xuất",
+        "errorLogoutMessage": "Đăng xuất thất bại.",
+        "featureUnderDevelopment": "Tính năng này đang được phát triển.",
+        "errorAvatarMessage": "Không thể chọn ảnh.",
+        "camera": "Chụp ảnh",
+        "gallery": "Chọn từ thư viện",
+        "openWebView": "Mở WebView"
+    },
+    "authentication": {
+        "loginTitle": "Đăng nhập tài khoản",
+        "loginSubtitle": "Đăng nhập vào tài khoản của bạn để tiếp tục.",
+        "moveSignUpTextSpan1": "Chưa có tài khoản? ",
+        "moveSignUpTextSpan2": "Đăng ký",
+        "loginForgotPassword": "Quên mật khẩu?",
+        "loginUsername": "Tên đăng nhập",
+        "loginPassword": "Mật khẩu",
+        "loginUsernameHint": "Nhập tên đăng nhập",
+        "loginUsernameWarning": "Vui lòng nhập tên đăng nhập",
+        "loginPasswordHint": "Nhập mật khẩu",
+        "loginPasswordWarning": "Vui lòng nhập mật khẩu",
+        "loginButton": "Đăng nhập",
+        "loginSuccess": "Đăng nhập thành công",
+        "loginError": "Đăng nhập thất bại. Vui lòng thử lại",
+        "signUpTitle": "Tạo tài khoản",
+        "signUpSubtitle": "Bắt đầu học với tài khoản của bạn",
+        "moveLoginTextSpan1": "Bạn đã có tài khoản? ",
+        "moveLoginTextSpan2": "Đăng nhập",
+        "signUpUsername": "Tên đăng nhập",
+        "signUpPassword": "Mật khẩu",
+        "signUpConfirmPassword": "Xác nhận mật khẩu",
+        "signUpUsernameHint": "Nhập tên đăng nhập",
+        "signUpPasswordHint": "Nhập mật khẩu",
+        "signUpConfirmPasswordHint": "Nhập xác nhận mật khẩu",
+        "signUpUsernameWarning": "Vui lòng nhập tên đăng nhập",
+        "signUpPasswordWarning": "Vui lòng nhập mật khẩu",
+        "signUpConfirmPasswordWarning": "Vui lòng nhập xác nhận mật khẩu",
+        "errorConfirmPasswordWarning": "Mật khẩu và xác nhận mật khẩu không trùng khớp",
+        "signUpUnavailable": "Chức năng đăng ký tạm thời không khả dụng.",
+        "signUpButton": "Đăng ký",
+        "splashMessage": "Vui lòng chờ một lát."
+    },
+    "bottomNavigation": {
+        "home": "Trang chủ",
+        "order": "Đặt hàng",
+        "favorite": "Yêu thích",
+        "profile": "Hồ sơ"
+    },
+    "theme": {
+        "lightTheme": "Sáng",
+        "darkTheme": "Tối",
+        "systemTheme": "Hệ thống"
+    },
+    "homeScreen": {
+        "homeTitle": "Trang chủ",
+        "featuredProducts": "Sản phẩm nổi bật",
+        "searchForProducts": "Tìm kiếm sản phẩm..."
+    },
+    "favoriteScreen": {
+        "favoriteTitle": "Sản phẩm yêu thích",
+        "errorMessage": "Không thể tải sản phẩm yêu thích",
+        "emptyMessage": "Chưa có sản phẩm yêu thích nào"
+    },
+    "common": {
+        "bannerOffline": "Bạn không có kết nối mạng. Hiển thị dữ liệu đã lưu.",
+        "retry": "Thử lại"
+    },
+    "detailScreen": {
+        "detailTitle": "Chi tiết sản phẩm",
+        "description": "Mô tả",
+        "like": "Thích",
+        "liked": "Đã thích"
+    },
+    "products": {
+        "emptyMessage": "Không có sản phẩm",
+        "tryAgainButton": "Thử lại",
+        "loadingMessage": "Đang tải...",
+        "errorMessage": "Không thể tải sản phẩm"
+    },
+    "webView": {
+        "title": "Nội dung Web",
+        "error": "Không thể tải trang web.",
+        "errorLoadUrl": "Không thể tải đường dẫn hoặc đường dẫn không hợp lệ"
+    }
+}

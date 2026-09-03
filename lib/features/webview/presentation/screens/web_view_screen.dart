@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -36,7 +38,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
           onWebResourceError: (_) {
             if (mounted) {
               setState(() {
-                _errorMessage = 'Không thể tải nội dung trang web.';
+                _errorMessage = LocaleKeys.webView.error.tr();
                 _progress = 100;
               });
             }
@@ -54,7 +56,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
     final uri = Uri.tryParse(widget.url);
 
     if (uri == null || !_isAllowedUri(uri)) {
-      _errorMessage = 'URL không hợp lệ hoặc không được phép mở.';
+      _errorMessage = LocaleKeys.webView.errorLoadUrl.tr();
       return;
     }
 
@@ -70,7 +72,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Web content')),
+      appBar: AppBar(title: Text(LocaleKeys.webView.title.tr())),
       body: _errorMessage != null
           ? Center(child: Text(_errorMessage!))
           : Column(

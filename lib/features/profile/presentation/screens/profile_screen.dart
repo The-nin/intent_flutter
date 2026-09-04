@@ -1,5 +1,6 @@
 import 'package:exercise_5_8_26/features/profile/presentation/providers/logout_provider.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/providers/avatar_provider.dart';
+import 'package:exercise_5_8_26/core/providers/theme_provider.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/logout_item.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/setting_item.dart';
@@ -85,12 +86,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  void _showThemeOptions() {
+    final themeProvider = context.read<ThemeProvider>();
+    final currentTheme = themeProvider.themeMode;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.light_mode_outlined),
+                title: Text(LocaleKeys.theme.lightTheme.tr()),
+                trailing: currentTheme == ThemeMode.light
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : null,
+                onTap: () {
+                  themeProvider.changeTheme(ThemeMode.light);
+                  context.pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.dark_mode_outlined),
+                title: Text(LocaleKeys.theme.darkTheme.tr()),
+                trailing: currentTheme == ThemeMode.dark
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : null,
+                onTap: () {
+                  themeProvider.changeTheme(ThemeMode.dark);
+                  context.pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentLocale = context.locale;
+    context.locale; // Đăng ký lắng nghe sự thay đổi ngôn ngữ
 
     return Scaffold(
-      key: ValueKey(currentLocale.languageCode),
       appBar: AppBar(
         title: Text(LocaleKeys.profile.profileTitle.tr()),
         centerTitle: true,
@@ -160,6 +199,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: () {
                         context.push('/language');
                       },
+                    ),
+
+                    SettingsItem(
+                      icon: Icons.dark_mode_outlined,
+                      title: LocaleKeys.profile.theme.tr(),
+                      onTap: _showThemeOptions,
                     ),
 
                     Text(

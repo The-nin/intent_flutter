@@ -17,7 +17,8 @@
         "errorAvatarMessage": "Cannot select image.",
         "camera": "Camera",
         "gallery": "Gallery",
-        "openWebView": "Open WebView"
+        "openWebView": "Open WebView",
+        "theme": "Theme"
     },
     "authentication": {
         "loginTitle": "Login Account",

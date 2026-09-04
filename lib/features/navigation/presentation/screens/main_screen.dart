@@ -17,6 +17,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context
+        .locale; // Đăng ký lắng nghe ngôn ngữ để update BottomNavigationBar labels
     final colors = Theme.of(context).colorScheme;
 
     return Scaffold(

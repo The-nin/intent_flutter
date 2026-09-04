@@ -129,7 +129,6 @@ GoRouter createAppRouter(AuthProvider authProvider) {
             ],
           ),
 
-          // Profile
           StatefulShellBranch(
             routes: [
               GoRoute(

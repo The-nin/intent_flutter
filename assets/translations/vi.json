@@ -17,7 +17,8 @@
         "errorAvatarMessage": "Không thể chọn ảnh.",
         "camera": "Chụp ảnh",
         "gallery": "Chọn từ thư viện",
-        "openWebView": "Mở WebView"
+        "openWebView": "Mở WebView",
+        "theme": "Giao diện"
     },
     "authentication": {
         "loginTitle": "Đăng nhập tài khoản",

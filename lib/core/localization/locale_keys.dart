@@ -36,6 +36,7 @@ class _ProfileKeys {
   String get camera => 'profile.camera';
   String get gallery => 'profile.gallery';
   String get openWebView => 'profile.openWebView';
+  String get theme => 'profile.theme';
 
   String get featureUnderDevelopment => 'profile.featureUnderDevelopment';
 }

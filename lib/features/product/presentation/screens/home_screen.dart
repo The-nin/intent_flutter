@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.locale; // Đăng ký lắng nghe sự thay đổi ngôn ngữ
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.homeScreen.homeTitle.tr()),

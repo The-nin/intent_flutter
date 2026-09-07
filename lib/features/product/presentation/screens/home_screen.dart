@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
+import 'package:exercise_5_8_26/features/product/presentation/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:exercise_5_8_26/features/product/presentation/providers/product_provider.dart';
 import '../widgets/banner_slider.dart';
-import '../widgets/product_card.dart';
 import '../widgets/search_bar.dart';
-import '../../../../enums/ui_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const route = '/home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,102 +37,52 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _buildBody() {
-    return Consumer<ProductProvider>(
-      builder: (context, provider, child) {
-        final state = provider.productsState;
-
-        if (state == UiStateEnum.loading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state == UiStateEnum.error) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  LocaleKeys.products.emptyMessage.tr(),
-                  style: TextStyle(fontSize: 18),
-                ),
-
-                const SizedBox(height: 16),
-
-                ElevatedButton(
-                  onPressed: provider.getProducts,
-                  child: Text(LocaleKeys.common.retry.tr()),
-                ),
-              ],
-            ),
-          );
-        }
-
-        if (state == UiStateEnum.empty) {
-          return Center(child: Text(LocaleKeys.products.emptyMessage.tr()));
-        }
-
-        final filteredProducts = provider.products
-            .where(
-              (p) =>
-                  p.title.toLowerCase().contains(_searchKeyword.toLowerCase()),
-            )
-            .toList();
-
-        return Column(
-          children: [
-            CustomSearchBar(
-              onChanged: (value) {
-                setState(() {
-                  _searchKeyword = value;
-                });
-              },
-            ),
-
-            BannerSlider(images: bannerImages),
-
-            const SizedBox(height: 8),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  LocaleKeys.homeScreen.featuredProducts.tr(),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-
-            Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: filteredProducts.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 0.7,
-                ),
-                itemBuilder: (context, index) {
-                  return ProductCard(product: filteredProducts[index]);
-                },
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    context.locale; // Đăng ký lắng nghe sự thay đổi ngôn ngữ
+    context.locale;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.homeScreen.homeTitle.tr()),
         centerTitle: true,
       ),
-      body: SafeArea(child: _buildBody()),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: CustomSearchBar(
+                onChanged: (value) {
+                  setState(() {
+                    _searchKeyword = value;
+                  });
+                },
+              ),
+            ),
+
+            SliverToBoxAdapter(child: BannerSlider(images: bannerImages)),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    LocaleKeys.homeScreen.featuredProducts.tr(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            ProductGrid(searchKeyword: _searchKeyword),
+          ],
+        ),
+      ),
     );
   }
 }

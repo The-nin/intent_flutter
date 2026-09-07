@@ -8,10 +8,11 @@ import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
+  static const route = '/favorite';
 
   @override
   Widget build(BuildContext context) {
-    context.locale; // Đăng ký lắng nghe sự thay đổi ngôn ngữ
+    context.locale;
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.favoriteScreen.favoriteTitle.tr()),

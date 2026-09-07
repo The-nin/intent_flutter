@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static const route = '/login';
 
   @override
   Widget build(BuildContext context) {

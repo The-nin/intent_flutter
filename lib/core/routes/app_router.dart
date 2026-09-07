@@ -16,7 +16,7 @@ import 'package:go_router/go_router.dart';
 
 GoRouter createAppRouter(AuthProvider authProvider) {
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: SplashScreen.route,
 
     refreshListenable: authProvider,
 
@@ -25,20 +25,20 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       final isAuthenticated = authProvider.isAuthenticated;
       final location = state.matchedLocation;
 
-      final isSplash = location == '/splash';
-      final publicRoutes = ['/login', SignUpScreen.route];
+      final isSplash = location == SplashScreen.route;
+      final publicRoutes = [LoginScreen.route, SignUpScreen.route];
       final isPublicRoutes = publicRoutes.contains(location);
 
       if (!isInitialized) {
-        return isSplash ? null : '/splash';
+        return isSplash ? null : SplashScreen.route;
       }
 
       if (!isAuthenticated) {
-        return isPublicRoutes ? null : '/login';
+        return isPublicRoutes ? null : LoginScreen.route;
       }
 
       if (isAuthenticated) {
-        return isSplash || isPublicRoutes ? '/home' : null;
+        return isSplash || isPublicRoutes ? HomeScreen.route : null;
       }
 
       return null;
@@ -46,14 +46,14 @@ GoRouter createAppRouter(AuthProvider authProvider) {
 
     routes: [
       GoRoute(
-        path: '/splash',
+        path: SplashScreen.route,
         builder: (context, state) {
           return const SplashScreen();
         },
       ),
 
       GoRoute(
-        path: '/login',
+        path: LoginScreen.route,
         builder: (context, state) {
           return const LoginScreen();
         },
@@ -65,7 +65,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       ),
 
       GoRoute(
-        path: '/product/:id',
+        path: ProductDetailScreen.route,
         builder: (context, state) {
           final id = int.parse(state.pathParameters['id']!);
 
@@ -74,7 +74,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       ),
 
       GoRoute(
-        path: '/webview',
+        path: WebViewScreen.route,
         builder: (context, state) {
           final url = state.uri.queryParameters['url'] ?? '';
 
@@ -83,7 +83,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
       ),
 
       GoRoute(
-        path: '/language',
+        path: LanguageScreen.route,
         builder: (context, state) {
           return const LanguageScreen();
         },
@@ -97,7 +97,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/home',
+                path: HomeScreen.route,
                 builder: (context, state) {
                   return const HomeScreen();
                 },
@@ -121,7 +121,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/favorite',
+                path: FavoriteScreen.route,
                 builder: (context, state) {
                   return const FavoriteScreen();
                 },
@@ -132,7 +132,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/profile',
+                path: ProfileScreen.route,
                 builder: (context, state) {
                   return const ProfileScreen();
                 },

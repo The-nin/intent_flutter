@@ -7,6 +7,10 @@ import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int productId;
+  static const route = '/product/:id';
+  static String routeWithId(int id) {
+    return '/product/$id';
+  }
 
   const ProductDetailScreen({super.key, required this.productId});
 
@@ -128,6 +132,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Expanded(
                             child: Text(
                               product.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,

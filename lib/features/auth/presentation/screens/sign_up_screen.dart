@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
+import 'package:exercise_5_8_26/features/auth/presentation/screens/login_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              context.go('/login');
+                              context.go(LoginScreen.route);
                             },
                         ),
                       ],

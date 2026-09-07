@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
+  static const route = '/language';
 
   @override
   Widget build(BuildContext context) {

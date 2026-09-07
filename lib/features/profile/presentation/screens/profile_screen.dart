@@ -13,6 +13,7 @@ import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+  static const route = '/profile';
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();

@@ -24,7 +24,7 @@ class _OfflineBannerState extends State<OfflineBanner> {
 
   void _startTimer() {
     _timer?.cancel();
-    _timer = Timer(const Duration(seconds: 5), () {
+    _timer = Timer(const Duration(seconds: 3), () {
       if (mounted) {
         setState(() {
           _isExpanded = false;
@@ -44,9 +44,9 @@ class _OfflineBannerState extends State<OfflineBanner> {
     final colors = Theme.of(context).colorScheme;
 
     return Consumer<ConnectivityProvider>(
-      builder: (context, connectivity, child) {
+      builder: (context, connectivity, _) {
         if (!connectivity.isOffline) {
-          return const SizedBox.shrink(); // Hide when online
+          return const SizedBox.shrink();
         }
 
         if (_isExpanded) {

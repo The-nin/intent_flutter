@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exercise_5_8_26/core/localization/locale_keys.dart';
 import 'package:exercise_5_8_26/core/storage/local_storage_service.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
 import 'package:flutter/foundation.dart';
@@ -32,7 +34,7 @@ class AvatarProvider extends ChangeNotifier {
       notifyListeners();
     } catch (_) {
       _state = UiStateEnum.error;
-      _errorMessage = 'Không thể tải ảnh đại diện đã lưu.';
+      _errorMessage = LocaleKeys.profile.loadAvatarError.tr();
       notifyListeners();
     }
   }
@@ -61,7 +63,7 @@ class AvatarProvider extends ChangeNotifier {
 
       if (fileSize > 5 * 1024 * 1024) {
         _state = UiStateEnum.error;
-        _errorMessage = 'Ảnh không được vượt quá 5 MB.';
+        _errorMessage = LocaleKeys.profile.avatarSizeError.tr();
         notifyListeners();
         return;
       }
@@ -71,7 +73,7 @@ class AvatarProvider extends ChangeNotifier {
       _state = UiStateEnum.success;
     } catch (e) {
       _state = UiStateEnum.error;
-      _errorMessage = 'Không thể lưu ảnh đại diện. Vui lòng thử lại.';
+      _errorMessage = LocaleKeys.profile.saveAvatarError.tr();
     }
 
     notifyListeners();

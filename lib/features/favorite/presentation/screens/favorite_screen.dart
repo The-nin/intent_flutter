@@ -6,9 +6,25 @@ import 'package:exercise_5_8_26/features/product/presentation/widgets/product_ca
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
   static const route = '/favorite';
+
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<ProductProvider>();
+
+      provider.loadFavorites();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

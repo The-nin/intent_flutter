@@ -2,6 +2,7 @@ import 'package:exercise_5_8_26/features/profile/presentation/providers/logout_p
 import 'package:exercise_5_8_26/features/profile/presentation/providers/avatar_provider.dart';
 import 'package:exercise_5_8_26/core/providers/theme_provider.dart';
 import 'package:exercise_5_8_26/enums/ui_state.dart';
+import 'package:exercise_5_8_26/features/profile/presentation/screens/language_screen.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/logout_item.dart';
 import 'package:exercise_5_8_26/features/profile/presentation/widgets/setting_item.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.locale; // Đăng ký lắng nghe sự thay đổi ngôn ngữ
+    context.locale;
 
     return Scaffold(
       appBar: AppBar(
@@ -159,7 +160,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 },
               ),
+
               const SizedBox(height: 12),
+
               ElevatedButton(
                 onPressed: () {
                   context.push(
@@ -198,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       icon: Icons.travel_explore_outlined,
                       title: LocaleKeys.profile.language.tr(),
                       onTap: () {
-                        context.push('/language');
+                        context.push(LanguageScreen.route);
                       },
                     ),
 

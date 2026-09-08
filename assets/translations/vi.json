@@ -18,7 +18,10 @@
         "camera": "Chụp ảnh",
         "gallery": "Chọn từ thư viện",
         "openWebView": "Mở WebView",
-        "theme": "Giao diện"
+        "theme": "Giao diện",
+        "loadAvatarError": "Không thể tải ảnh đại diện đã lưu.",
+        "avatarSizeError": "Ảnh không được vượt quá 5 MB.",
+        "saveAvatarError": "Không thể lưu ảnh đại diện. Vui lòng thử lại."
     },
     "authentication": {
         "loginTitle": "Đăng nhập tài khoản",
@@ -94,5 +97,11 @@
         "title": "Nội dung Web",
         "error": "Không thể tải trang web.",
         "errorLoadUrl": "Không thể tải đường dẫn hoặc đường dẫn không hợp lệ"
+    },
+    "notFoundScreen": {
+        "screenTitle": "404 - Không tìm thấy",
+        "title": "Ôi không! Màn hình không tồn tại.",
+        "subTitle": "Chúng tôi không tìm thấy màn hình bạn đang tìm.",
+        "homeButton": "Về trang chủ"
     }
 }

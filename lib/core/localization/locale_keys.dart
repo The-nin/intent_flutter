@@ -11,6 +11,7 @@ abstract final class LocaleKeys {
   static const detailScreen = _DetailScreenKeys();
   static const products = _ProductsKeys();
   static const webView = _WebViewKeys();
+  static const notFoundScreen = _NotFoundScreenKeys();
 }
 
 class _AppKeys {
@@ -37,6 +38,9 @@ class _ProfileKeys {
   String get gallery => 'profile.gallery';
   String get openWebView => 'profile.openWebView';
   String get theme => 'profile.theme';
+  String get loadAvatarError => 'profile.loadAvatarError';
+  String get avatarSizeError => 'profile.avatarSizeError';
+  String get saveAvatarError => 'profile.saveAvatarError';
 
   String get featureUnderDevelopment => 'profile.featureUnderDevelopment';
 }
@@ -186,4 +190,16 @@ class _WebViewKeys {
   String get error => 'webView.error';
 
   String get errorLoadUrl => 'webView.errorLoadUrl';
+}
+
+class _NotFoundScreenKeys {
+  const _NotFoundScreenKeys();
+
+  String get screenTitle => 'notFoundScreen.screenTitle';
+
+  String get title => 'notFoundScreen.title';
+
+  String get subTitle => 'notFoundScreen.subTitle';
+
+  String get homeButton => 'notFoundScreen.homeButton';
 }

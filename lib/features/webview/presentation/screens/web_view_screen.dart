@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
-  static const route = '/web-view';
+  static const route = '/webview';
 
   const WebViewScreen({super.key, required this.url});
 
@@ -74,7 +74,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.webView.title.tr())),
+      appBar: AppBar(
+        title: Text(LocaleKeys.webView.title.tr()),
+        centerTitle: true,
+      ),
       body: _errorMessage != null
           ? Center(child: Text(_errorMessage!))
           : Column(

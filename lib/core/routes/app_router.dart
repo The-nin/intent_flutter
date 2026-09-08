@@ -1,3 +1,4 @@
+import 'package:exercise_5_8_26/core/screens/screen_not_found.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/providers/auth_provider.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/screens/login_screen.dart';
 import 'package:exercise_5_8_26/features/auth/presentation/screens/sign_up_screen.dart';
@@ -18,6 +19,7 @@ GoRouter createAppRouter(AuthProvider authProvider) {
   return GoRouter(
     initialLocation: SplashScreen.route,
 
+    errorBuilder: (context, state) => const ScreenNotFound(),
     refreshListenable: authProvider,
 
     redirect: (context, state) {

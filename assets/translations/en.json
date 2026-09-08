@@ -18,7 +18,10 @@
         "camera": "Camera",
         "gallery": "Gallery",
         "openWebView": "Open WebView",
-        "theme": "Theme"
+        "theme": "Theme",
+        "loadAvatarError": "Cannot load saved avatar.",
+        "avatarSizeError": "Avatar size cannot exceed 5 MB.",
+        "saveAvatarError": "Cannot save avatar. Please try again."
     },
     "authentication": {
         "loginTitle": "Login Account",
@@ -94,5 +97,11 @@
         "title": "Web Content",
         "error": "Cannot load web content",
         "errorLoadUrl": "Cannot load URL or URL invalid"
+    },
+    "notFoundScreen": {
+        "screenTitle": "404 - Screen Not Found",
+        "title": "Oops! Screen Not Found",
+        "subTitle": "We couldn't find the screen you're looking for.",
+        "homeButton": "Go to Home"
     }
 }
